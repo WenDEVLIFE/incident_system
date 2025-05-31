@@ -33,12 +33,6 @@ public final class MainFrame extends javax.swing.JFrame {
         jLabelBackround = new javax.swing.JLabel();
         jLabelBackground = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenuAddnewincident = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuSearch = new javax.swing.JMenuItem();
-        jMenuSignOut = new javax.swing.JMenuItem();
-        jMenuEx = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -46,6 +40,12 @@ public final class MainFrame extends javax.swing.JFrame {
         jMenuItemGreen = new javax.swing.JMenuItem();
         jMenuItemWhite = new javax.swing.JMenuItem();
         jMenuItemDefault = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuSearch = new javax.swing.JMenuItem();
+        jMenuSignOut = new javax.swing.JMenuItem();
+        jMenuEx = new javax.swing.JMenuItem();
+        jMenuAddnewincident = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
 
         jCheckBoxMenuItem1.setSelected(true);
@@ -66,8 +66,8 @@ public final class MainFrame extends javax.swing.JFrame {
 
         jLabelBackround.setBackground(new java.awt.Color(204, 102, 255));
         jLabelBackround.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelBackround.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/Back.jpg"))); // NOI18N
-        getContentPane().add(jLabelBackround, new org.netbeans.lib.awtextra.AbsoluteConstraints(-290, 0, 1530, 510));
+        jLabelBackround.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/cases (2).png"))); // NOI18N
+        getContentPane().add(jLabelBackround, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 0, 880, 410));
 
         jLabelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/Back.jpg"))); // NOI18N
         getContentPane().add(jLabelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 820, 450));
@@ -82,73 +82,8 @@ public final class MainFrame extends javax.swing.JFrame {
         jMenuBar1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jMenuBar1.setPreferredSize(new java.awt.Dimension(322, 40));
 
-        jMenuAddnewincident.setBackground(new java.awt.Color(204, 255, 204));
-        jMenuAddnewincident.setForeground(new java.awt.Color(51, 51, 51));
-        jMenuAddnewincident.setText("Investigation");
-        jMenuAddnewincident.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuAddnewincident.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        jMenuAddnewincident.setMaximumSize(new java.awt.Dimension(220, 32767));
-        jMenuAddnewincident.setMinimumSize(new java.awt.Dimension(106, 36));
-        jMenuAddnewincident.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuAddnewincidentActionPerformed(evt);
-            }
-        });
-
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/Result.png"))); // NOI18N
-        jMenuItem1.setText("View Incidents");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenuAddnewincident.add(jMenuItem1);
-
-        jMenuBar1.add(jMenuAddnewincident);
-
-        jMenu1.setForeground(new java.awt.Color(51, 51, 51));
-        jMenu1.setText("Settings");
-        jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-
-        jMenuSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/sea.png"))); // NOI18N
-        jMenuSearch.setText("Search System");
-        jMenuSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuSearchActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuSearch);
-
-        jMenuSignOut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuSignOut.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuSignOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/signOut.png"))); // NOI18N
-        jMenuSignOut.setText("SignOut");
-        jMenuSignOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuSignOutActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuSignOut);
-
-        jMenuEx.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        jMenuEx.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuEx.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/ex.png"))); // NOI18N
-        jMenuEx.setText("Exit");
-        jMenuEx.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuExActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuEx);
-
-        jMenuBar1.add(jMenu1);
-
         jMenu7.setForeground(new java.awt.Color(51, 51, 51));
-        jMenu7.setText("File");
+        jMenu7.setText("File                 ");
         jMenu7.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
 
         jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -207,8 +142,73 @@ public final class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu7);
 
+        jMenu1.setForeground(new java.awt.Color(51, 51, 51));
+        jMenu1.setText("Settings           ");
+        jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+
+        jMenuSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/sea.png"))); // NOI18N
+        jMenuSearch.setText("Search System");
+        jMenuSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSearchActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuSearch);
+
+        jMenuSignOut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuSignOut.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuSignOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/signOut.png"))); // NOI18N
+        jMenuSignOut.setText("SignOut");
+        jMenuSignOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSignOutActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuSignOut);
+
+        jMenuEx.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuEx.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuEx.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/ex.png"))); // NOI18N
+        jMenuEx.setText("Exit");
+        jMenuEx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuExActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuEx);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenuAddnewincident.setBackground(new java.awt.Color(204, 255, 204));
+        jMenuAddnewincident.setForeground(new java.awt.Color(51, 51, 51));
+        jMenuAddnewincident.setText("Investigation");
+        jMenuAddnewincident.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuAddnewincident.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        jMenuAddnewincident.setMaximumSize(new java.awt.Dimension(220, 32767));
+        jMenuAddnewincident.setMinimumSize(new java.awt.Dimension(106, 36));
+        jMenuAddnewincident.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuAddnewincidentActionPerformed(evt);
+            }
+        });
+
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/Result.png"))); // NOI18N
+        jMenuItem1.setText("View Incidents");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuAddnewincident.add(jMenuItem1);
+
+        jMenuBar1.add(jMenuAddnewincident);
+
         jMenu5.setForeground(new java.awt.Color(51, 51, 51));
-        jMenu5.setText(" About");
+        jMenu5.setText(" About            ");
         jMenu5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMenu5.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
