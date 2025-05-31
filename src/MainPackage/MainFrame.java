@@ -88,7 +88,7 @@ public final class MainFrame extends javax.swing.JFrame {
 
         jMenuAddnewincident.setBackground(new java.awt.Color(204, 255, 204));
         jMenuAddnewincident.setForeground(new java.awt.Color(51, 51, 51));
-        jMenuAddnewincident.setText("Under investigation\n");
+        jMenuAddnewincident.setText("Investigation");
         jMenuAddnewincident.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMenuAddnewincident.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jMenuAddnewincident.setMaximumSize(new java.awt.Dimension(220, 32767));
@@ -101,7 +101,7 @@ public final class MainFrame extends javax.swing.JFrame {
 
         jMenuItem1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/Result.png"))); // NOI18N
-        jMenuItem1.setText("Under investigation");
+        jMenuItem1.setText("View Incidents");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);

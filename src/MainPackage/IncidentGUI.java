@@ -4,6 +4,12 @@
  */
 package MainPackage;
 
+import SomeFunctions.Helper;
+
+import javax.swing.*;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Administrator
@@ -84,6 +90,11 @@ public class IncidentGUI extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Add");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(0, 204, 204));
         jButton2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
@@ -298,6 +309,121 @@ public class IncidentGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+
+    // This is for the add incidents
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JDialog addIncidentDialog = new JDialog(this, "Add Incident", true);
+        addIncidentDialog.setLayout(null);
+        addIncidentDialog.setSize(400, 500);
+
+        // Labels and text fields for input
+        JLabel lblIncidentType = new JLabel("Type of Incident:");
+        lblIncidentType.setBounds(20, 20, 120, 25);
+        JTextField txtIncidentType = new JTextField();
+        txtIncidentType.setBounds(150, 20, 200, 25);
+
+        JLabel lblDate = new JLabel("Date:");
+        lblDate.setBounds(20, 60, 120, 25);
+        JTextField txtDate = new JTextField();
+        txtDate.setBounds(150, 60, 200, 25);
+
+        JLabel lblTime = new JLabel("Time:");
+        lblTime.setBounds(20, 100, 120, 25);
+        JTextField txtTime = new JTextField();
+        txtTime.setBounds(150, 100, 200, 25);
+
+        JLabel lblLocation = new JLabel("Location:");
+        lblLocation.setBounds(20, 140, 120, 25);
+        JTextField txtLocation = new JTextField();
+        txtLocation.setBounds(150, 140, 200, 25);
+
+        JLabel lblDescription = new JLabel("Description:");
+        lblDescription.setBounds(20, 180, 120, 25);
+        JTextField txtDescription = new JTextField();
+        txtDescription.setBounds(150, 180, 200, 25);
+
+        JLabel lblPeopleInvolved = new JLabel("People Involved:");
+        lblPeopleInvolved.setBounds(20, 220, 120, 25);
+        JTextField txtPeopleInvolved = new JTextField();
+        txtPeopleInvolved.setBounds(150, 220, 200, 25);
+
+        JLabel lblOfficer = new JLabel("Officer In Charge:");
+        lblOfficer.setBounds(20, 260, 120, 25);
+        JTextField txtOfficer = new JTextField();
+        txtOfficer.setBounds(150, 260, 200, 25);
+
+        // Buttons
+        JButton btnSave = new JButton("Save");
+        btnSave.setBounds(80, 320, 100, 30);
+        JButton btnCancel = new JButton("Cancel");
+        btnCancel.setBounds(200, 320, 100, 30);
+
+        // Add components to dialog
+        addIncidentDialog.add(lblIncidentType);
+        addIncidentDialog.add(txtIncidentType);
+        addIncidentDialog.add(lblDate);
+        addIncidentDialog.add(txtDate);
+        addIncidentDialog.add(lblTime);
+        addIncidentDialog.add(txtTime);
+        addIncidentDialog.add(lblLocation);
+        addIncidentDialog.add(txtLocation);
+        addIncidentDialog.add(lblDescription);
+        addIncidentDialog.add(txtDescription);
+        addIncidentDialog.add(lblPeopleInvolved);
+        addIncidentDialog.add(txtPeopleInvolved);
+        addIncidentDialog.add(lblOfficer);
+        addIncidentDialog.add(txtOfficer);
+        addIncidentDialog.add(btnSave);
+        addIncidentDialog.add(btnCancel);
+
+        // Button actions
+        btnSave.addActionListener(e -> {
+            // Save logic here
+            String incidentType = txtIncidentType.getText();
+            String date = txtDate.getText();
+            String time = txtTime.getText();
+            String location = txtLocation.getText();
+            String description = txtDescription.getText();
+            String peopleInvolved = txtPeopleInvolved.getText();
+            String officer = txtOfficer.getText();
+
+
+            // Validate date format (e.g., YYYY-MM-DD)
+            if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                JOptionPane.showMessageDialog(addIncidentDialog, "Invalid date format. Please use YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validate time format (e.g., HH:MM)
+            if (!time.matches("\\d{2}:\\d{2} (AM|PM)")) {
+                JOptionPane.showMessageDialog(addIncidentDialog, "Invalid time format. Please use HH:MM.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (incidentType.isEmpty() || date.isEmpty() || time.isEmpty() || location.isEmpty() || description.isEmpty() || peopleInvolved.isEmpty() || officer.isEmpty()) {
+                JOptionPane.showMessageDialog(addIncidentDialog, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Map<String, Object> incidentData = new HashMap<>();
+            incidentData.put("incidentType", incidentType);
+            incidentData.put("date", date);
+            incidentData.put("time", time);
+            incidentData.put("location", location);
+            incidentData.put("description", description);
+            incidentData.put("peopleInvolved", peopleInvolved);
+            incidentData.put("officer", officer);
+
+           Helper insert = new Helper();
+           insert.insertIncident(incidentData, addIncidentDialog);
+        });
+
+        btnCancel.addActionListener(e -> addIncidentDialog.dispose());
+
+        addIncidentDialog.setLocationRelativeTo(this);
+        addIncidentDialog.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
