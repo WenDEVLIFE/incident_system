@@ -419,7 +419,7 @@ public final class MainFrame extends javax.swing.JFrame {
     
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
        
-       Incident reg = new Incident();
+       IncidentGUI reg = new IncidentGUI();
        reg.setVisible(true);
        reg.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
