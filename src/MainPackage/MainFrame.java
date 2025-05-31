@@ -7,6 +7,7 @@ import UserSetting.LoginFrame;
 import UserSetting.UserSetting;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -34,9 +35,6 @@ public final class MainFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuAddnewincident = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuPending = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuSearch = new javax.swing.JMenuItem();
         jMenuSignOut = new javax.swing.JMenuItem();
@@ -48,8 +46,6 @@ public final class MainFrame extends javax.swing.JFrame {
         jMenuItemGreen = new javax.swing.JMenuItem();
         jMenuItemWhite = new javax.swing.JMenuItem();
         jMenuItemDefault = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
 
         jCheckBoxMenuItem1.setSelected(true);
@@ -110,43 +106,6 @@ public final class MainFrame extends javax.swing.JFrame {
         jMenuAddnewincident.add(jMenuItem1);
 
         jMenuBar1.add(jMenuAddnewincident);
-
-        jMenu4.setBackground(new java.awt.Color(255, 153, 153));
-        jMenu4.setForeground(new java.awt.Color(51, 51, 51));
-        jMenu4.setText("Pending");
-        jMenu4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        jMenu4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu4ActionPerformed(evt);
-            }
-        });
-
-        jMenuPending.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuPending.setBackground(new java.awt.Color(48, 48, 48));
-        jMenuPending.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuPending.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/ToDo.png"))); // NOI18N
-        jMenuPending.setText("Pending");
-        jMenuPending.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuPending.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuPendingActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuPending);
-
-        jMenuItem6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/Result.png"))); // NOI18N
-        jMenuItem6.setText("TimeTable");
-        jMenuItem6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem6);
-
-        jMenuBar1.add(jMenu4);
 
         jMenu1.setForeground(new java.awt.Color(51, 51, 51));
         jMenu1.setText("Settings");
@@ -246,21 +205,6 @@ public final class MainFrame extends javax.swing.JFrame {
 
         jMenu7.add(jMenu2);
 
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/theme.png"))); // NOI18N
-        jMenu6.setText("Theme");
-        jMenu6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem2.setText("Theme 2");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jMenuItem2);
-
-        jMenu7.add(jMenu6);
-
         jMenuBar1.add(jMenu7);
 
         jMenu5.setForeground(new java.awt.Color(51, 51, 51));
@@ -287,8 +231,7 @@ public final class MainFrame extends javax.swing.JFrame {
     Frame frame = new Frame();
     search searchO = new search();
     UserSetting us = new UserSetting();
-    Incident manageO = new Incident();
-    TeacherRegistrations teacher = new TeacherRegistrations();
+    IncidentGUI manageO = new IncidentGUI();
     ResultTable rt = new ResultTable();
     LoginFrame Login = new LoginFrame();
     private void jMenuExActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuExActionPerformed
@@ -297,7 +240,6 @@ public final class MainFrame extends javax.swing.JFrame {
 
     private void jMenuSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSignOutActionPerformed
         this.dispose();
-        teacher.dispose();
         frame.dispose();
         tt.dispose();
         Back.dispose();
@@ -310,12 +252,6 @@ public final class MainFrame extends javax.swing.JFrame {
         Login.setLocationRelativeTo(null);
         
     }//GEN-LAST:event_jMenuSignOutActionPerformed
-
-    private void jMenuPendingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuPendingActionPerformed
-        teacher.setVisible(true);
-        teacher.pack();
-        teacher.setLocationRelativeTo(null);
-    }//GEN-LAST:event_jMenuPendingActionPerformed
 
     private void jMenuSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSearchActionPerformed
         searchO.setVisible(true);
@@ -333,15 +269,6 @@ public final class MainFrame extends javax.swing.JFrame {
         about.pack();
         about.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenu5MouseClicked
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-         MainFrame2 mf2 = new MainFrame2();
-        mf2.setVisible(true);
-        mf2.pack();
-        mf2.setLocationRelativeTo(null);
-        mf2.setExtendedState(MainFrame2.MAXIMIZED_BOTH);
-        this.dispose();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
         
         int a = 2;        
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -364,24 +291,11 @@ public final class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
-
-        
-    }//GEN-LAST:event_jMenu4ActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         LoginAsTeacher();
         LoginAsStudent();
     }//GEN-LAST:event_formWindowOpened
-        TimeTable tt = new TimeTable();
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        
-        tt.setVisible(true);
-        tt.setLocationRelativeTo(null);
-        tt.pack();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
-        Background Back = new Background();
+        TimeTable tt = new TimeTable();        Background Back = new Background();
     private void jMenuItemGreenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGreenActionPerformed
         Back.setVisible(true);
         Back.pack();
@@ -434,7 +348,7 @@ public final class MainFrame extends javax.swing.JFrame {
             rs = ps.executeQuery();
             rs.next();
             if(LoginFrame.SeeUser.equals(rs.getString("loginAs"))){
-                jMenu4.setEnabled(false);
+ 
                 jMenuAddnewincident.setEnabled(false);
               
             }
@@ -451,10 +365,12 @@ public final class MainFrame extends javax.swing.JFrame {
             s = MyConnection.getConnection().prepareStatement(Query2);
             r = s.executeQuery();
             r.next();
-            if(LoginFrame.SeeUser.equals(r.getString("loginAs")))
-                jMenuPending.setEnabled(false);
+            if(LoginFrame.SeeUser.equals(r.getString("loginAs"))){
                 
-        }catch(Exception e){
+            }
+             }
+        catch(Exception e){
+            
         }
 // =============================================================================
     }
@@ -499,22 +415,17 @@ public final class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelBackround;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenuAddnewincident;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuEx;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItemDefault;
     private javax.swing.JMenuItem jMenuItemGreen;
     private javax.swing.JMenuItem jMenuItemWhite;
-    private javax.swing.JMenuItem jMenuPending;
     private javax.swing.JMenuItem jMenuSearch;
     private javax.swing.JMenuItem jMenuSignOut;
     private java.awt.PopupMenu popupMenu1;

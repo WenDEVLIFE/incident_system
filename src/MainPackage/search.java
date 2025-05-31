@@ -148,7 +148,7 @@ public class search extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        this.setState(Incident.ICONIFIED);
+        this.setState(IncidentGUI.ICONIFIED);
     }//GEN-LAST:event_jLabel8MouseClicked
         UserSetting edit = new UserSetting();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
