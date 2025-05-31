@@ -39,7 +39,7 @@ public class MainFrame2 extends javax.swing.JFrame {
     
     Frame frame = new Frame();
     search searchO = new search();
-    StudentRegistration manageO = new StudentRegistration();
+    Incident manageO = new Incident();
     TeacherRegistrations teacher = new TeacherRegistrations();
     LoginFrame Login = new LoginFrame();
     About ad = new About();

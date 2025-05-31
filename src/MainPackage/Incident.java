@@ -23,7 +23,7 @@ import model.StudentModel;
  *
  * @author Hadi
  */
-public class StudentRegistration extends javax.swing.JFrame {
+public class Incident extends javax.swing.JFrame {
     
      DefaultTableModel model;
     List <StudentModel> studentList = new ArrayList<>();
@@ -34,7 +34,7 @@ public class StudentRegistration extends javax.swing.JFrame {
     private Object jTextGender;
     private Object jTableGenderName;
     private Object jTextName;
-    public StudentRegistration() {
+    public Incident() {
         initComponents();
         
         String [] colums ={"No", "Type-of-Incident", "First-Name", "L-Name", "Gender",  "Time" ,"Date", "Involved", "Location"};
@@ -778,7 +778,7 @@ try {
         }
 
     } catch (SQLException ex) {
-        Logger.getLogger(StudentRegistration.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(Incident.class.getName()).log(Level.SEVERE, null, ex);
         JOptionPane.showMessageDialog(this, "Error fetching student data: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
     }
 }
@@ -815,14 +815,16 @@ try {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StudentRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Incident.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StudentRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Incident.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StudentRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Incident.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StudentRegistration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Incident.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -830,7 +832,7 @@ try {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new StudentRegistration().setVisible(true);
+                new Incident().setVisible(true);
             }
         });
     }

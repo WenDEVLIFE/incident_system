@@ -287,7 +287,7 @@ public final class MainFrame extends javax.swing.JFrame {
     Frame frame = new Frame();
     search searchO = new search();
     UserSetting us = new UserSetting();
-    StudentRegistration manageO = new StudentRegistration();
+    Incident manageO = new Incident();
     TeacherRegistrations teacher = new TeacherRegistrations();
     ResultTable rt = new ResultTable();
     LoginFrame Login = new LoginFrame();
@@ -419,7 +419,7 @@ public final class MainFrame extends javax.swing.JFrame {
     
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
        
-       StudentRegistration reg = new StudentRegistration();
+       Incident reg = new Incident();
        reg.setVisible(true);
        reg.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
