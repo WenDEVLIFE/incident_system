@@ -65,4 +65,7 @@ public class IncidentModel {
     }
 
 
+    public String getStatus() {
+        return status;
+    }
 }

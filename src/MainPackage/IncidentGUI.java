@@ -5,9 +5,13 @@
 package MainPackage;
 
 import SomeFunctions.Helper;
+import model.IncidentModel;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,12 +20,42 @@ import java.util.Map;
  */
 public class IncidentGUI extends javax.swing.JFrame {
 
+    DefaultTableModel casesTableModel;
+    DefaultTableModel pendingTableModel;
+     DefaultTableModel underInvestigationTableModel;
+    DefaultTableModel resolvedTableModel;
+    List<IncidentModel > casesList = new ArrayList<>();
+    List <IncidentModel> pendingList = new ArrayList<>();
+    List <IncidentModel> underInvestigationList = new ArrayList<>();
+    List <IncidentModel> resolvedList = new ArrayList<>();
+
     /**
      * Creates new form IncedentGUI
      */
     public IncidentGUI() {
         initComponents();
         setTitle("Incidents");
+        setResizable(false);
+
+        String [] columnNames = {"ID", "Type of Incident", "Date", "Time", "Location", "Description", "People Involved", "Reporting Officer", "Status"};
+        casesTableModel = new DefaultTableModel(columnNames, 0);
+        jTable1.setModel(casesTableModel);
+
+        // Set the table model for the pending tab
+        pendingTableModel = new DefaultTableModel(columnNames, 0);
+        jTable2.setModel(pendingTableModel);
+
+        // Set the table model for the under investigation tab
+        underInvestigationTableModel = new DefaultTableModel(columnNames, 0);
+        jTable3.setModel(underInvestigationTableModel);
+
+        // Set the table model for the resolved tab
+        resolvedTableModel = new DefaultTableModel(columnNames, 0);
+        jTable4.setModel(resolvedTableModel);
+
+
+        // Load existing incidents into the table
+        loadIncidents();
     }
 
     /**
@@ -425,6 +459,82 @@ public class IncidentGUI extends javax.swing.JFrame {
         addIncidentDialog.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+
+    void loadIncidents() {
+        casesList.clear();
+        pendingList.clear();
+        underInvestigationList.clear();
+        resolvedList.clear();
+
+        casesTableModel.setRowCount(0);
+        pendingTableModel.setRowCount(0);
+        underInvestigationTableModel.setRowCount(0);
+        resolvedTableModel.setRowCount(0);
+
+        Helper helper = new Helper();
+        casesList = helper.getAllIncidents();
+        pendingList = helper.getPendingIncidents();
+        underInvestigationList = helper.getUnderInvestigationIncidents();
+        resolvedList = helper.getResolvedIncidents();
+
+        for (IncidentModel incident : casesList) {
+            casesTableModel.addRow(new Object[]{
+                incident.getId(),
+                incident.getIncident(),
+                incident.getDate(),
+                incident.getTime(),
+                incident.getLocation(),
+                incident.getDescription(),
+                incident.getPeopleInvolved(),
+                incident.getOfficerInCharge(),
+                incident.getStatus()
+            });
+        }
+
+        for (IncidentModel incident : pendingList) {
+            pendingTableModel.addRow(new Object[]{
+                incident.getId(),
+                incident.getIncident(),
+                incident.getDate(),
+                incident.getTime(),
+                incident.getLocation(),
+                incident.getDescription(),
+                incident.getPeopleInvolved(),
+                incident.getOfficerInCharge(),
+                incident.getStatus()
+            });
+        }
+
+        for (IncidentModel incident : underInvestigationList) {
+            underInvestigationTableModel.addRow(new Object[]{
+                incident.getId(),
+                incident.getIncident(),
+                incident.getDate(),
+                incident.getTime(),
+                incident.getLocation(),
+                incident.getDescription(),
+                incident.getPeopleInvolved(),
+                incident.getOfficerInCharge(),
+                incident.getStatus()
+            });
+        }
+
+        for (IncidentModel incident : resolvedList) {
+            resolvedTableModel.addRow(new Object[]{
+                incident.getId(),
+                incident.getIncident(),
+                incident.getDate(),
+                incident.getTime(),
+                incident.getLocation(),
+                incident.getDescription(),
+                incident.getPeopleInvolved(),
+                incident.getOfficerInCharge(),
+                incident.getStatus()
+            });
+        }
+
+
+    }
     /**
      * @param args the command line arguments
      */

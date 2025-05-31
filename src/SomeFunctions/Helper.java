@@ -1,7 +1,11 @@
 package SomeFunctions;
+import model.IncidentModel;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import javax.swing.*;
 
@@ -174,5 +178,117 @@ public class Helper {
             JOptionPane.showMessageDialog(addIncidentDialog, "Error: " + e.getMessage());
         }
 
+    }
+
+    public List<IncidentModel> getAllIncidents() {
+        List<IncidentModel> incidents = new ArrayList<>();
+        String query = "SELECT * FROM incident_table";
+
+        try (PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
+             ResultSet rs = st.executeQuery()) {
+
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String incident = rs.getString("incident");
+                String date = rs.getString("date");
+                String time = rs.getString("time");
+                String location = rs.getString("location");
+                String description = rs.getString("description");
+                String peopleInvolved = rs.getString("people_involved");
+                String officerInCharge = rs.getString("officer");
+                String status = rs.getString("status");
+
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status);
+                incidents.add(incidentModel);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching incidents: " + e.getMessage());
+        }
+
+        return incidents;
+    }
+
+    public List<IncidentModel> getPendingIncidents() {
+        List<IncidentModel> pendingIncidents = new ArrayList<>();
+        String query = "SELECT * FROM incident_table WHERE status = 'Pending'";
+
+        try (PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
+             ResultSet rs = st.executeQuery()) {
+
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String incident = rs.getString("incident");
+                String date = rs.getString("date");
+                String time = rs.getString("time");
+                String location = rs.getString("location");
+                String description = rs.getString("description");
+                String peopleInvolved = rs.getString("people_involved");
+                String officerInCharge = rs.getString("officer");
+                String status = rs.getString("status");
+
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status);
+                pendingIncidents.add(incidentModel);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching pending incidents: " + e.getMessage());
+        }
+
+        return pendingIncidents;
+    }
+
+    public List<IncidentModel> getUnderInvestigationIncidents() {
+        List<IncidentModel> underInvestigationIncidents = new ArrayList<>();
+        String query = "SELECT * FROM incident_table WHERE status = 'Under Investigation'";
+
+        try (PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
+             ResultSet rs = st.executeQuery()) {
+
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String incident = rs.getString("incident");
+                String date = rs.getString("date");
+                String time = rs.getString("time");
+                String location = rs.getString("location");
+                String description = rs.getString("description");
+                String peopleInvolved = rs.getString("people_involved");
+                String officerInCharge = rs.getString("officer");
+                String status = rs.getString("status");
+
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status);
+                underInvestigationIncidents.add(incidentModel);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching under investigation incidents: " + e.getMessage());
+        }
+
+        return underInvestigationIncidents;
+    }
+
+    public List<IncidentModel> getResolvedIncidents() {
+        List<IncidentModel> resolvedIncidents = new ArrayList<>();
+        String query = "SELECT * FROM incident_table WHERE status = 'Resolved'";
+
+        try (PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
+             ResultSet rs = st.executeQuery()) {
+
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String incident = rs.getString("incident");
+                String date = rs.getString("date");
+                String time = rs.getString("time");
+                String location = rs.getString("location");
+                String description = rs.getString("description");
+                String peopleInvolved = rs.getString("people_involved");
+                String officerInCharge = rs.getString("officer");
+                String status = rs.getString("status");
+
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status);
+                resolvedIncidents.add(incidentModel);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching resolved incidents: " + e.getMessage());
+        }
+
+        return resolvedIncidents;
     }
 }
