@@ -291,4 +291,72 @@ public class Helper {
 
         return resolvedIncidents;
     }
+
+    public void updateIncident(Map<String, Object> incidentData, int selectedRow, JDialog updateIncidentDialog) {
+        String query = "UPDATE incident_table SET incident = ?, date = ?, time = ?, location = ?, description = ?, people_involved = ?, officer = ? WHERE id = ?";
+        String incident = (String) incidentData.get("incidentType");
+        String date = (String) incidentData.get("date");
+        String time = (String) incidentData.get("time");
+        String location = (String) incidentData.get("location");
+        String description = (String) incidentData.get("description");
+        String peopleInvolved = (String) incidentData.get("peopleInvolved");
+        String officer = (String) incidentData.get("officer");
+        String id = (String) incidentData.get("id");
+
+        try {
+            PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
+            st.setString(1, incident);
+            st.setString(2, date);
+            st.setString(3, time);
+            st.setString(4, location);
+            st.setString(5, description);
+            st.setString(6, peopleInvolved);
+            st.setString(7, officer);
+            st.setString(8, id);
+
+            if (st.executeUpdate() > 0) {
+                JOptionPane.showMessageDialog(updateIncidentDialog, "Incident updated successfully!");
+                updateIncidentDialog.dispose();
+            } else {
+                JOptionPane.showMessageDialog(updateIncidentDialog, "Failed to update incident. Please try again.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(updateIncidentDialog, "Error: " + e.getMessage());
+        }
+    }
+
+    public void deleteIncident(String incidentId) {
+        String query = "DELETE FROM incident_table WHERE id = ?";
+
+        try {
+            PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
+            st.setString(1, incidentId);
+
+            if (st.executeUpdate() > 0) {
+                JOptionPane.showMessageDialog(null, "Incident deleted successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Failed to delete incident. Please try again.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
+
+    public void updateIncidentStatus(String incidentId, String underInvestigation) {
+        String query = "UPDATE incident_table SET status = ? WHERE id = ?";
+
+        try {
+            PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
+            st.setString(1, underInvestigation);
+            st.setString(2, incidentId);
+
+            if (st.executeUpdate() > 0) {
+                JOptionPane.showMessageDialog(null, "Incident status updated successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Failed to update incident status. Please try again.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
 }

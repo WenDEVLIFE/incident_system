@@ -134,11 +134,21 @@ public class IncidentGUI extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Delete");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(0, 204, 204));
         jButton3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("Update");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -188,11 +198,21 @@ public class IncidentGUI extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(0, 0, 0));
         jButton4.setText("Investigate");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setBackground(new java.awt.Color(0, 204, 204));
         jButton5.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jButton5.setForeground(new java.awt.Color(0, 0, 0));
         jButton5.setText("Delete");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -244,11 +264,21 @@ public class IncidentGUI extends javax.swing.JFrame {
         jButton6.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(0, 0, 0));
         jButton6.setText("Resolve");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(0, 204, 204));
         jButton7.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jButton7.setForeground(new java.awt.Color(0, 0, 0));
         jButton7.setText("Delete");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -300,6 +330,11 @@ public class IncidentGUI extends javax.swing.JFrame {
         jButton9.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jButton9.setForeground(new java.awt.Color(0, 0, 0));
         jButton9.setText("Delete");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -451,6 +486,8 @@ public class IncidentGUI extends javax.swing.JFrame {
 
            Helper insert = new Helper();
            insert.insertIncident(incidentData, addIncidentDialog);
+
+            loadIncidents();
         });
 
         btnCancel.addActionListener(e -> addIncidentDialog.dispose());
@@ -458,6 +495,243 @@ public class IncidentGUI extends javax.swing.JFrame {
         addIncidentDialog.setLocationRelativeTo(this);
         addIncidentDialog.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    // This is for edit data
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to update.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JDialog updateIncidentDialog = new JDialog(this, "Update Incident", true);
+
+        updateIncidentDialog.setLayout(null);
+        updateIncidentDialog.setSize(400, 500);
+        // Labels and text fields for input
+        JLabel lblIncidentType = new JLabel("Type of Incident:");
+        lblIncidentType.setBounds(20, 20, 120, 25);
+        JTextField txtIncidentType = new JTextField((String) jTable1.getValueAt(selectedRow, 1));
+        txtIncidentType.setBounds(150, 20, 200, 25);
+        JLabel lblDate = new JLabel("Date:");
+        lblDate.setBounds(20, 60, 120, 25);
+        JTextField txtDate = new JTextField((String) jTable1.getValueAt(selectedRow, 2));
+        txtDate.setBounds(150, 60, 200, 25);
+        JLabel lblTime = new JLabel("Time:");
+        lblTime.setBounds(20, 100, 120, 25);
+        JTextField txtTime = new JTextField((String) jTable1.getValueAt(selectedRow, 3));
+        txtTime.setBounds(150, 100, 200, 25);
+        JLabel lblLocation = new JLabel("Location:");
+        lblLocation.setBounds(20, 140, 120, 25);
+        JTextField txtLocation = new JTextField((String) jTable1.getValueAt(selectedRow, 4));
+        txtLocation.setBounds(150, 140, 200, 25);
+        JLabel lblDescription = new JLabel("Description:");
+        lblDescription.setBounds(20, 180, 120, 25);
+        JTextField txtDescription = new JTextField((String) jTable1.getValueAt(selectedRow, 5));
+        txtDescription.setBounds(150, 180, 200, 25);
+        JLabel lblPeopleInvolved = new JLabel("People Involved:");
+        lblPeopleInvolved.setBounds(20, 220, 120, 25);
+        JTextField txtPeopleInvolved = new JTextField((String) jTable1.getValueAt(selectedRow, 6));
+        txtPeopleInvolved.setBounds(150, 220, 200, 25);
+
+        JLabel lblOfficer = new JLabel("Officer In Charge:");
+        lblOfficer.setBounds(20, 260, 120, 25);
+        JTextField txtOfficer = new JTextField((String) jTable1.getValueAt(selectedRow, 7));
+
+        txtOfficer.setBounds(150, 260, 200, 25);
+
+        // Buttons
+        JButton btnSave = new JButton("Save");
+        btnSave.setBounds(80, 320, 100, 30);
+        JButton btnCancel = new JButton("Cancel");
+        btnCancel.setBounds(200, 320, 100, 30);
+        // Add components to dialog
+        updateIncidentDialog.add(lblIncidentType);
+        updateIncidentDialog.add(txtIncidentType);
+        updateIncidentDialog.add(lblDate);
+        updateIncidentDialog.add(txtDate);
+        updateIncidentDialog.add(lblTime);
+        updateIncidentDialog.add(txtTime);
+        updateIncidentDialog.add(lblLocation);
+        updateIncidentDialog.add(txtLocation);
+        updateIncidentDialog.add(lblDescription);
+        updateIncidentDialog.add(txtDescription);
+        updateIncidentDialog.add(lblPeopleInvolved);
+        updateIncidentDialog.add(txtPeopleInvolved);
+        updateIncidentDialog.add(lblOfficer);
+        updateIncidentDialog.add(txtOfficer);
+        updateIncidentDialog.add(btnSave);
+        updateIncidentDialog.add(btnCancel);
+
+        // Button actions
+        btnSave.addActionListener(e -> {
+            // Save logic here
+            String incidentType = txtIncidentType.getText();
+            String date = txtDate.getText();
+            String time = txtTime.getText();
+            String location = txtLocation.getText();
+            String description = txtDescription.getText();
+            String peopleInvolved = txtPeopleInvolved.getText();
+            String officer = txtOfficer.getText();
+
+            // Validate date format (e.g., YYYY-MM-DD)
+            if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                JOptionPane.showMessageDialog(updateIncidentDialog, "Invalid date format. Please use YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validate time format (e.g., HH:MM)
+            if (!time.matches("\\d{2}:\\d{2} (AM|PM)")) {
+                JOptionPane.showMessageDialog(updateIncidentDialog, "Invalid time format. Please use HH:MM.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (incidentType.isEmpty() || date.isEmpty() || time.isEmpty() || location.isEmpty() || description.isEmpty() || peopleInvolved.isEmpty() || officer.isEmpty()) {
+                JOptionPane.showMessageDialog(updateIncidentDialog, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Map<String, Object> incidentData = new HashMap<>();
+            incidentData.put("incidentType", incidentType);
+            incidentData.put("date", date);
+            incidentData.put("time", time);
+            incidentData.put("location", location);
+            incidentData.put("description", description);
+            incidentData.put("peopleInvolved", peopleInvolved);
+            incidentData.put("officer", officer);
+            incidentData.put("id", jTable1.getValueAt(selectedRow, 0));
+
+           Helper update = new Helper();
+           update.updateIncident(incidentData, selectedRow, updateIncidentDialog);
+
+           loadIncidents();
+
+        });
+
+        btnCancel.addActionListener(e -> updateIncidentDialog.dispose());
+
+        updateIncidentDialog.setLocationRelativeTo(this);
+        updateIncidentDialog.setVisible(true);
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    // This is for delete cases
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this incident?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            String incidentId = (String) jTable1.getValueAt(selectedRow, 0);
+            Helper deleteHelper = new Helper();
+            deleteHelper.deleteIncident(incidentId);
+            loadIncidents();
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    // Update pending status to under investigation
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+        int selectedRow = jTable2.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to investigate.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String incidentId = (String) jTable2.getValueAt(selectedRow, 0);
+
+        // Update the status of the incident to "Under Investigation"
+        Helper updateHelper = new Helper();
+        updateHelper.updateIncidentStatus(incidentId, "Under Investigation");
+
+        loadIncidents();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    /// update it to resolved
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+        int selectedRow = jTable3.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to resolve.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String incidentId = (String) jTable3.getValueAt(selectedRow, 0);
+
+        // Update the status of the incident to "Resolved"
+        Helper updateHelper = new Helper();
+        updateHelper.updateIncidentStatus(incidentId, "Resolved");
+
+        loadIncidents();
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    // delete resolved
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+
+        int selectedRow = jTable4.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this incident?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            String incidentId = (String) jTable4.getValueAt(selectedRow, 0);
+            Helper deleteHelper = new Helper();
+            deleteHelper.deleteIncident(incidentId);
+            loadIncidents();
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    // delete under investigation
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+
+        int selectedRow = jTable3.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this incident?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            String incidentId = (String) jTable3.getValueAt(selectedRow, 0);
+            Helper deleteHelper = new Helper();
+            deleteHelper.deleteIncident(incidentId);
+            loadIncidents();
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    // delete pending cases
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        int selectedRow = jTable2.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this incident?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            String incidentId = (String) jTable2.getValueAt(selectedRow, 0);
+            Helper deleteHelper = new Helper();
+            deleteHelper.deleteIncident(incidentId);
+            loadIncidents();
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
 
     void loadIncidents() {
