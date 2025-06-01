@@ -4,6 +4,7 @@ import model.IncidentModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,44 +12,44 @@ import javax.swing.*;
 
 public class Helper {
 
-    
+
     public static boolean AlreadyExist(String StudentID){
         PreparedStatement st;
         ResultSet rs;
         boolean alreadyExist = false;
         String query = "SELECT * FROM student_registration where student_id =?";
-        
+
         try{
             st = MyConnection.getConnection().prepareStatement(query);
             st.setString(1, StudentID);
             rs = st.executeQuery();
-            
+
             if(rs.next()){
                 alreadyExist = true;
                 JOptionPane.showMessageDialog(null,"Student with this Id is Already Exist","Error",2);
-            }    
+            }
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null,"Error please Try Again Later!");
         }
         return alreadyExist;
     }
-    
+
     public static boolean incidentExist(String incident){
         PreparedStatement st;
         ResultSet rs;
         boolean alreadyExist = false;
         String query = "SELECT * FROM student_registration where incident =?";
-        
+
         try{
             st = MyConnection.getConnection().prepareStatement(query);
             st.setString(1, incident);
             rs = st.executeQuery();
-            
+
             if(rs.next()){
                 alreadyExist = true;
                 JOptionPane.showMessageDialog(null,"Incident Already Exsit","Error",2);
-            }    
+            }
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null,"Error please Try Again Later!");
@@ -61,61 +62,61 @@ public class Helper {
         ResultSet rs;
         boolean alreadyExist = false;
         String query = "SELECT * FROM resulttable where id =?";
-        
+
         try{
             st = MyConnection.getConnection().prepareStatement(query);
             st.setString(1, ID);
             rs = st.executeQuery();
-            
+
             if(rs.next()){
                 alreadyExist = true;
                 JOptionPane.showMessageDialog(null,"Student with this Id is Already Exist","Error",2);
-            }    
+            }
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null,"Error please Try Again Later!");
         }
         return alreadyExist;
     }
-    
+
     public static boolean AlreadyExistT(String TeacherID){
         PreparedStatement st;
         ResultSet rs;
         boolean alreadyExist = false;
         String query = "SELECT * FROM teacher where teacher_id =?";
-        
+
         try{
             st = MyConnection.getConnection().prepareStatement(query);
             st.setString(1, TeacherID);
             rs = st.executeQuery();
-            
+
             if(rs.next()){
                 alreadyExist = true;
                 JOptionPane.showMessageDialog(null,"This Id is Already Exist","Error",2);
-            }    
+            }
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null,"Error please Try Again Later!");
         }
         return alreadyExist;
     }
-    
-    
+
+
     public static boolean AcountExist(String username){
         PreparedStatement st;
         ResultSet rs;
         boolean alreadyExist = false;
         String query = "SELECT * FROM login where userName =?";
-        
+
         try{
             st = MyConnection.getConnection().prepareStatement(query);
             st.setString(1, username);
             rs = st.executeQuery();
-            
+
             if(rs.next()){
                 alreadyExist = true;
                 JOptionPane.showMessageDialog(null,"The UserName is Already Taken","Error",2);
-            }    
+            }
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null,"Can Not Create Account At This Time Please Try Later!");
@@ -145,9 +146,9 @@ public class Helper {
         return alreadyExist;
     }
 
-// This will insert an incident into the database
+    // This will insert an incident into the database
     public void insertIncident(Map<String, Object> incidentData, JDialog addIncidentDialog) {
-        String query = "INSERT INTO incident_table (incident, date, time, location, description, people_involved, officer, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO incident_table (incident, date, time, location, description, people_involved, officer, status, resolve_description, resolved_by, date_passed, date_finished) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?)";
         String incident = (String) incidentData.get("incidentType");
         String date = (String) incidentData.get("date");
         String time = (String) incidentData.get("time");
@@ -155,8 +156,6 @@ public class Helper {
         String description = (String) incidentData.get("description");
         String peopleInvolved = (String) incidentData.get("peopleInvolved");
         String officer = (String) incidentData.get("officer");
-
-
         try {
             PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
             st.setString(1, incident);
@@ -167,6 +166,11 @@ public class Helper {
             st.setString(6, peopleInvolved);
             st.setString(7, officer);
             st.setString(8, "Pending"); // Default status
+            st.setString(9, "n/a"); // Default resolve description
+            st.setString(10, "n/a"); // Default resolve by
+            LocalDate currentDate = LocalDate.now();
+            st.setString(11, currentDate.toString()); // Date passed
+            st.setString(12, "n/a"); // Date finished
 
             if (st.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(addIncidentDialog, "Incident added successfully!");
@@ -177,7 +181,6 @@ public class Helper {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(addIncidentDialog, "Error: " + e.getMessage());
         }
-
     }
 
     public List<IncidentModel> getAllIncidents() {
@@ -197,8 +200,10 @@ public class Helper {
                 String peopleInvolved = rs.getString("people_involved");
                 String officerInCharge = rs.getString("officer");
                 String status = rs.getString("status");
+                String resolvedDescription = rs.getString("resolve_description");
+                String resolvedBy = rs.getString("resolved_by");
 
-                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status);
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
                 incidents.add(incidentModel);
             }
         } catch (SQLException e) {
@@ -225,8 +230,10 @@ public class Helper {
                 String peopleInvolved = rs.getString("people_involved");
                 String officerInCharge = rs.getString("officer");
                 String status = rs.getString("status");
+                String resolvedDescription = rs.getString("resolve_description");
+                String resolvedBy = rs.getString("resolved_by");
 
-                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status);
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
                 pendingIncidents.add(incidentModel);
             }
         } catch (SQLException e) {
@@ -253,8 +260,10 @@ public class Helper {
                 String peopleInvolved = rs.getString("people_involved");
                 String officerInCharge = rs.getString("officer");
                 String status = rs.getString("status");
+                String resolvedDescription = rs.getString("resolve_description");
+                String resolvedBy = rs.getString("resolved_by");
 
-                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status);
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
                 underInvestigationIncidents.add(incidentModel);
             }
         } catch (SQLException e) {
@@ -281,8 +290,10 @@ public class Helper {
                 String peopleInvolved = rs.getString("people_involved");
                 String officerInCharge = rs.getString("officer");
                 String status = rs.getString("status");
+                String resolvedDescription = rs.getString("resolve_description");
+                String resolvedBy = rs.getString("resolved_by");
 
-                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status);
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
                 resolvedIncidents.add(incidentModel);
             }
         } catch (SQLException e) {
@@ -342,8 +353,8 @@ public class Helper {
         }
     }
 
-    public void updateIncidentStatus(String incidentId, String underInvestigation) {
-        String query = "UPDATE incident_table SET status = ? WHERE id = ?";
+    public void updateIncidentStatus(String incidentId, String underInvestigation, String resolvedDescription, String resolvedBy) {
+        String query = "UPDATE incident_table SET status = ?, WHERE id =?";
 
         try {
             PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
@@ -359,4 +370,35 @@ public class Helper {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
     }
+
+    public void updateIncidentToResolved(String incidentId, String status, String resolvedDescription, String resolvedBy) {
+        String query = "UPDATE incident_table SET status = ?, resolve_description = ?, resolved_by = ?, date_finished = ? WHERE id = ?";
+
+        try {
+            int incidentIdInt = Integer.parseInt(incidentId); // ID is INT
+
+            PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
+            st.setString(1, status);
+            st.setString(2, resolvedDescription);
+            st.setString(3, resolvedBy);
+            st.setString(4, LocalDate.now().toString()); // Use String for date
+            st.setInt(5, incidentIdInt);
+
+            int rows = st.executeUpdate();
+            if (rows > 0) {
+                JOptionPane.showMessageDialog(null, "✅ Incident updated successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "⚠️ No incident found with ID " + incidentIdInt);
+            }
+
+            st.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "❌ SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "❗ Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 }

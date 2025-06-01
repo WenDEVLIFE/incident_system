@@ -50,7 +50,8 @@ public class IncidentGUI extends javax.swing.JFrame {
         jTable3.setModel(underInvestigationTableModel);
 
         // Set the table model for the resolved tab
-        resolvedTableModel = new DefaultTableModel(columnNames, 0);
+        String [] resolvedColumnNames = {"ID", "Type of Incident", "Date", "Time", "Location", "Resolved Description", "People Involved", "Reporting Officer", "Resolved By", "Status" };
+        resolvedTableModel = new DefaultTableModel(resolvedColumnNames, 0);
         jTable4.setModel(resolvedTableModel);
 
 
@@ -877,12 +878,11 @@ public class IncidentGUI extends javax.swing.JFrame {
 
         // Update the status of the incident to "Under Investigation"
         Helper updateHelper = new Helper();
-        updateHelper.updateIncidentStatus(incidentId, "Under Investigation");
+        updateHelper.updateIncidentStatus(incidentId, "Under Investigation", "resolvedtype", "resolvedby");
 
         loadIncidents();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    /// update it to resolved
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
         int selectedRow = jTable3.getSelectedRow();
@@ -894,12 +894,49 @@ public class IncidentGUI extends javax.swing.JFrame {
 
         String incidentId = (String) jTable3.getValueAt(selectedRow, 0);
 
-        // Update the status of the incident to "Resolved"
-        Helper updateHelper = new Helper();
-        updateHelper.updateIncidentStatus(incidentId, "Resolved");
+        JDialog resolveIncidentDialog = new JDialog(this, "Resolve Incident", true);
+        resolveIncidentDialog.setLayout(null);
+        resolveIncidentDialog.setSize(400, 250);
 
-        loadIncidents();
-        
+        // Labels and text fields for input
+        JLabel lblResolveDescription = new JLabel("Resolve Description:");
+        lblResolveDescription.setBounds(20, 20, 150, 25);
+        JTextField txtResolveDescription = new JTextField();
+        txtResolveDescription.setBounds(180, 20, 200, 25);
+
+        JLabel lblResolvedBy = new JLabel("Resolved By:");
+        lblResolvedBy.setBounds(20, 60, 150, 25);
+        JTextField txtResolvedBy = new JTextField();
+        txtResolvedBy.setBounds(180, 60, 200, 25);
+
+        JButton btnSave = new JButton("Save");
+        btnSave.setBounds(150, 120, 100, 30);
+
+        resolveIncidentDialog.add(lblResolveDescription);
+        resolveIncidentDialog.add(txtResolveDescription);
+        resolveIncidentDialog.add(lblResolvedBy);
+        resolveIncidentDialog.add(txtResolvedBy);
+        resolveIncidentDialog.add(btnSave);
+
+        btnSave.addActionListener(e -> {
+            String resolveDescription = txtResolveDescription.getText().trim();
+            String resolvedBy = txtResolvedBy.getText().trim();
+
+            if (resolveDescription.isEmpty() || resolvedBy.isEmpty()) {
+                JOptionPane.showMessageDialog(resolveIncidentDialog, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Helper updateHelper = new Helper();
+            updateHelper.updateIncidentToResolved(incidentId, "Resolved", resolveDescription, resolvedBy);
+
+            resolveIncidentDialog.dispose();
+            loadIncidents();
+        });
+
+        resolveIncidentDialog.setLocationRelativeTo(this);
+        resolveIncidentDialog.setVisible(true);
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     // delete resolved
@@ -1042,9 +1079,10 @@ public class IncidentGUI extends javax.swing.JFrame {
                 incident.getDate(),
                 incident.getTime(),
                 incident.getLocation(),
-                incident.getDescription(),
+                incident.getResolveDescription(),
                 incident.getPeopleInvolved(),
                 incident.getOfficerInCharge(),
+                    incident.getResolveDescription(),
                 incident.getStatus()
             });
         }

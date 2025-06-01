@@ -19,8 +19,12 @@ public class IncidentModel {
 
     String status;
 
+    String resolve_description;
+
+    String resolvedBy;
+
     public IncidentModel(String id, String incident, String date, String time, String location,
-                          String description, String peopleInvolved, String OfficerInCharge, String status) {
+                          String description, String peopleInvolved, String OfficerInCharge, String status, String resolve_description, String resolvedBy) {
         this.id = id;
         this.incident = incident;
         this.date = date;
@@ -30,6 +34,8 @@ public class IncidentModel {
         this.peopleInvolved = peopleInvolved;
         this.OfficerInCharge = OfficerInCharge;
         this.status = status;
+        this.resolve_description = resolve_description;
+        this.resolvedBy = resolvedBy;
     }
 
     public String getId() {
@@ -67,5 +73,13 @@ public class IncidentModel {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getResolveDescription() {
+        return resolve_description;
+    }
+
+    public String getResolvedBy() {
+        return resolvedBy;
     }
 }
