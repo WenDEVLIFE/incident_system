@@ -401,4 +401,67 @@ public class Helper {
         }
     }
 
+    public List<IncidentModel> getAllPendingAndUnderInvestigationIncidents() {
+        List<IncidentModel> incidents = new ArrayList<>();
+        String query = "SELECT * FROM incident_table WHERE status = 'Pending' OR status = 'Under Investigation'";
+
+        try (PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
+             ResultSet rs = st.executeQuery()) {
+
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String incident = rs.getString("incident");
+                String date = rs.getString("date");
+                String time = rs.getString("time");
+                String location = rs.getString("location");
+                String description = rs.getString("description");
+                String peopleInvolved = rs.getString("people_involved");
+                String officerInCharge = rs.getString("officer");
+                String status = rs.getString("status");
+                String resolvedDescription = rs.getString("resolve_description");
+                String resolvedBy = rs.getString("resolved_by");
+
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
+                incidents.add(incidentModel);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching incidents: " + e.getMessage());
+        }
+
+        return incidents;
+    }
+
+    public int getPendingCount() {
+        int count = 0;
+        String query = "SELECT COUNT(*) FROM incident_table WHERE status = 'Pending'";
+
+        try (PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
+             ResultSet rs = st.executeQuery()) {
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching pending count: " + e.getMessage());
+        }
+
+        return count;
+    }
+
+    public int getUnderInvestigationCount() {
+        int count = 0;
+        String query = "SELECT COUNT(*) FROM incident_table WHERE status = 'Under Investigation'";
+
+        try (PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
+             ResultSet rs = st.executeQuery()) {
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching under investigation count: " + e.getMessage());
+        }
+
+        return count;
+    }
 }

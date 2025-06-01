@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -38,15 +38,15 @@
               <EmptySpace pref="12" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jButton6" min="-2" pref="179" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
-                      <Component id="jButton5" min="-2" pref="179" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="343" max="-2" attributes="0"/>
+                      <Component id="jButton7" min="-2" pref="179" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="jButton5" min="-2" pref="250" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="268" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel6" min="-2" pref="220" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="SearchPendingField" min="-2" pref="923" max="-2" attributes="0"/>
+                      <Component id="SearchCasesField" min="-2" pref="923" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -62,17 +62,16 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="SearchPendingField" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="SearchCasesField" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="jLabel6" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="323" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jButton6" pref="38" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jButton7" pref="45" max="32767" attributes="0"/>
                   <Component id="jButton5" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -93,33 +92,33 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" pref="220" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
+                          <Component id="pendingText" min="-2" pref="47" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" pref="47" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="97" max="32767" attributes="0"/>
+                  <EmptySpace pref="54" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="46" max="32767" attributes="0"/>
+                  <EmptySpace pref="52" max="32767" attributes="0"/>
                   <Component id="jLabel3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" pref="35" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="pendingText" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="pendingText">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Verdana" size="18" style="1"/>
@@ -138,7 +137,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Total Resolved Cases"/>
+            <Property name="text" type="java.lang.String" value="Total Resolved Peding Cases"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -158,13 +157,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
-                  <Component id="jLabel4" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="underInvestigationText" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="64" max="32767" attributes="0"/>
-                  <Component id="jLabel5" min="-2" pref="258" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                  <EmptySpace pref="31" max="32767" attributes="0"/>
+                  <Component id="jLabel5" min="-2" pref="334" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -174,14 +173,14 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel5" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabel4" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="underInvestigationText" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel4">
+        <Component class="javax.swing.JLabel" name="underInvestigationText">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Verdana" size="18" style="1"/>
@@ -200,7 +199,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Total Unresolved Cases"/>
+            <Property name="text" type="java.lang.String" value="Total Under Investigation Cases"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -294,13 +293,26 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Print"/>
+        <Property name="text" type="java.lang.String" value="Print Under Investigation"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
+    <Component class="javax.swing.JTextField" name="SearchCasesField">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SearchCasesFieldActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel6">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Verdana" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Search Incident, ID and etc:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton7">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="0" type="rgb"/>
@@ -311,24 +323,11 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Delete"/>
+        <Property name="text" type="java.lang.String" value="Print Pending"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="SearchPendingField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SearchPendingFieldActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Verdana" size="12" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Search Incident, ID and etc:"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>

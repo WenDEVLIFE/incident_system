@@ -4,17 +4,55 @@
  */
 package MainPackage;
 
+import SomeFunctions.Helper;
+import SomeFunctions.PrintReports;
+import model.IncidentModel;
+
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Frouen Junior
  */
 public class ReportGUI extends javax.swing.JFrame {
 
+    DefaultTableModel casesTableModel;
+    List<IncidentModel> reportList = new ArrayList<>();
     /**
      * Creates new form ReportGUI
      */
     public ReportGUI() {
         initComponents();
+
+        String [] columnNames = {"ID", "Type of Incident", "Date", "Time", "Location", "Description", "People Involved", "Reporting Officer", "Status"};
+        casesTableModel = new DefaultTableModel(columnNames, 0);
+        jTable2.setModel(casesTableModel);
+        loadData();
+
+        SearchCasesField.addActionListener((evt -> {
+            String searchText = SearchCasesField.getText().toLowerCase();
+            casesTableModel.setRowCount(0); // Clear the table
+
+            for (IncidentModel incident : reportList) {
+                if (incident.getIncident().toLowerCase().contains(searchText) ||
+                    String.valueOf(incident.getId()).contains(searchText)) {
+                    Object[] row = {
+                        incident.getId(),
+                        incident.getIncident(),
+                        incident.getDate(),
+                        incident.getTime(),
+                        incident.getLocation(),
+                        incident.getDescription(),
+                        incident.getPeopleInvolved(),
+                        incident.getOfficerInCharge(),
+                        incident.getStatus()
+                    };
+                    casesTableModel.addRow(row);
+                }
+            }
+        }));
     }
 
     /**
@@ -27,30 +65,30 @@ public class ReportGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        pendingText = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        underInvestigationText = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        SearchPendingField = new javax.swing.JTextField();
+        SearchCasesField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
         jPanel1.setForeground(new java.awt.Color(0, 204, 204));
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("0");
+        pendingText.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        pendingText.setForeground(new java.awt.Color(0, 0, 0));
+        pendingText.setText("0");
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Total Resolved Cases");
+        jLabel3.setText("Total Resolved Peding Cases");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -59,33 +97,33 @@ public class ReportGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(166, 166, 166)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(97, Short.MAX_VALUE))
+                        .addComponent(pendingText, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel3)))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pendingText, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
         );
 
         jPanel3.setBackground(new java.awt.Color(0, 204, 204));
         jPanel3.setForeground(new java.awt.Color(0, 204, 204));
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("0");
+        underInvestigationText.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        underInvestigationText.setForeground(new java.awt.Color(0, 0, 0));
+        underInvestigationText.setText("0");
 
         jLabel5.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Total Unresolved Cases");
+        jLabel5.setText("Total Under Investigation Cases");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -93,12 +131,12 @@ public class ReportGUI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(166, 166, 166)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(underInvestigationText, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(64, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,7 +144,7 @@ public class ReportGUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(underInvestigationText, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
         );
 
@@ -126,31 +164,31 @@ public class ReportGUI extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(0, 204, 204));
         jButton5.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jButton5.setForeground(new java.awt.Color(0, 0, 0));
-        jButton5.setText("Print");
+        jButton5.setText("Print Under Investigation");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(0, 204, 204));
-        jButton6.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(0, 0, 0));
-        jButton6.setText("Delete");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        SearchCasesField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
-        SearchPendingField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchPendingFieldActionPerformed(evt);
+                SearchCasesFieldActionPerformed(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel6.setText("Search Incident, ID and etc:");
+
+        jButton7.setBackground(new java.awt.Color(0, 204, 204));
+        jButton7.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(0, 0, 0));
+        jButton7.setText("Print Pending");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,14 +207,14 @@ public class ReportGUI extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(89, 89, 89)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(343, 343, 343))
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(268, 268, 268))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SearchPendingField, javax.swing.GroupLayout.PREFERRED_SIZE, 923, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(SearchCasesField, javax.swing.GroupLayout.PREFERRED_SIZE, 923, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,34 +225,73 @@ public class ReportGUI extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SearchPendingField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SearchCasesField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    // This is for print under investigation
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-       
+
+        PrintReports.getInstance().printUnderInvestigationReport(reportList);
+
+        loadData();
       
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void SearchCasesFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchCasesFieldActionPerformed
 
-    private void SearchPendingFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchPendingFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SearchPendingFieldActionPerformed
+    }//GEN-LAST:event_SearchCasesFieldActionPerformed
 
+    
+    // This will print the pending table
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+
+        // Call the printPendingReport method from PrintReports class
+        SomeFunctions.PrintReports.getInstance().printPendingReport(reportList);
+
+        // Optionally, you can refresh the data after printing
+        loadData();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    void loadData(){
+        reportList.clear();
+        casesTableModel.setRowCount(0);
+
+        Helper helper = new Helper();
+        reportList = helper.getAllPendingAndUnderInvestigationIncidents();
+
+        int pendingCount = helper.getPendingCount();
+        int underInvestigationCount = helper.getUnderInvestigationCount();
+
+        pendingText.setText(String.valueOf(pendingCount));
+        underInvestigationText.setText(String.valueOf(underInvestigationCount));
+
+        for (IncidentModel incident : reportList) {
+            Object[] row = {
+                incident.getId(),
+                incident.getIncident(),
+                incident.getDate(),
+                incident.getTime(),
+                incident.getLocation(),
+                incident.getDescription(),
+                incident.getPeopleInvolved(),
+                incident.getOfficerInCharge(),
+                incident.getStatus()
+            };
+            casesTableModel.addRow(row);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -251,17 +328,17 @@ public class ReportGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField SearchPendingField;
+    private javax.swing.JTextField SearchCasesField;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
+    private javax.swing.JLabel pendingText;
+    private javax.swing.JLabel underInvestigationText;
     // End of variables declaration//GEN-END:variables
 }
