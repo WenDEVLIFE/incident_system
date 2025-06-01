@@ -152,7 +152,7 @@ public final class MainFrame extends javax.swing.JFrame {
         jMenuSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/sea.png"))); // NOI18N
-        jMenuSearch.setText("Search System");
+        jMenuSearch.setText("Reports");
         jMenuSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuSearchActionPerformed(evt);
@@ -231,7 +231,7 @@ public final class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     Frame frame = new Frame();
-    search searchO = new search();
+    ReportGUI searchO = new ReportGUI();
     UserSetting us = new UserSetting();
     IncidentGUI manageO = new IncidentGUI();
     ResultTable rt = new ResultTable();
