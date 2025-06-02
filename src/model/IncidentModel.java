@@ -13,6 +13,8 @@ public class IncidentModel {
 
     String description;
 
+    String narratives;
+
     String peopleInvolved;
 
     String OfficerInCharge;
@@ -23,14 +25,16 @@ public class IncidentModel {
 
     String resolvedBy;
 
+
     public IncidentModel(String id, String incident, String date, String time, String location,
-                          String description, String peopleInvolved, String OfficerInCharge, String status, String resolve_description, String resolvedBy) {
+                          String description, String narratives, String peopleInvolved, String OfficerInCharge, String status, String resolve_description, String resolvedBy) {
         this.id = id;
         this.incident = incident;
         this.date = date;
         this.time = time;
         this.location = location;
         this.description = description;
+        this.narratives = narratives;
         this.peopleInvolved = peopleInvolved;
         this.OfficerInCharge = OfficerInCharge;
         this.status = status;
@@ -60,6 +64,10 @@ public class IncidentModel {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getNarratives() {
+        return narratives;
     }
 
     public String getPeopleInvolved() {
