@@ -354,7 +354,7 @@ public class Helper {
     }
 
     public void updateIncidentStatus(String incidentId, String underInvestigation, String resolvedDescription, String resolvedBy) {
-        String query = "UPDATE incident_table SET status = ?, WHERE id =?";
+        String query = "UPDATE incident_table SET status = ? WHERE id =?";
 
         try {
             PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
