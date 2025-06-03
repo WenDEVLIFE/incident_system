@@ -37,7 +37,7 @@ public class IncidentGUI extends javax.swing.JFrame {
         setTitle("Incidents");
         setResizable(false);
 
-        String [] columnNames = {"ID", "Type of Incident", "Date", "Time", "Location", "Description", "People Involved", "Reporting Officer", "Status"};
+        String [] columnNames = {"ID", "Type of Incident", "Date", "Time", "Location", "Description", "Narratives", "People Involved", "Reporting Officer", "Status"};
         casesTableModel = new DefaultTableModel(columnNames, 0);
         jTable1.setModel(casesTableModel);
 
@@ -76,6 +76,7 @@ public class IncidentGUI extends javax.swing.JFrame {
                             incident.getTime().toLowerCase().contains(searchText) ||
                             incident.getLocation().toLowerCase().contains(searchText) ||
                             incident.getDescription().toLowerCase().contains(searchText) ||
+                            incident.getNarratives().toLowerCase().contains(searchText) ||
                             incident.getPeopleInvolved().toLowerCase().contains(searchText) ||
                             incident.getOfficerInCharge().toLowerCase().contains(searchText)) {
                         casesTableModel.addRow(new Object[]{
@@ -85,6 +86,7 @@ public class IncidentGUI extends javax.swing.JFrame {
                                 incident.getTime(),
                                 incident.getLocation(),
                                 incident.getDescription(),
+                                incident.getNarratives(),
                                 incident.getPeopleInvolved(),
                                 incident.getOfficerInCharge(),
                                 incident.getStatus()
@@ -639,6 +641,12 @@ public class IncidentGUI extends javax.swing.JFrame {
         JTextField txtDescription = new JTextField();
         txtDescription.setBounds(150, 180, 200, 25);
 
+        JLabel lblNarrative = new JLabel("Narrative:");
+        lblNarrative.setBounds(20, 200, 120, 25);
+        JTextField txtNarrative = new JTextField();
+        txtNarrative.setBounds(150, 200, 200, 25);
+
+
         JLabel lblPeopleInvolved = new JLabel("People Involved:");
         lblPeopleInvolved.setBounds(20, 220, 120, 25);
         JTextField txtPeopleInvolved = new JTextField();
@@ -665,6 +673,8 @@ public class IncidentGUI extends javax.swing.JFrame {
         addIncidentDialog.add(lblLocation);
         addIncidentDialog.add(txtLocation);
         addIncidentDialog.add(lblDescription);
+        addIncidentDialog.add(txtNarrative);
+        addIncidentDialog.add(lblNarrative);
         addIncidentDialog.add(txtDescription);
         addIncidentDialog.add(lblPeopleInvolved);
         addIncidentDialog.add(txtPeopleInvolved);
@@ -683,6 +693,7 @@ public class IncidentGUI extends javax.swing.JFrame {
             String description = txtDescription.getText();
             String peopleInvolved = txtPeopleInvolved.getText();
             String officer = txtOfficer.getText();
+            String narrative = txtNarrative.getText();
 
 
             // Validate date format (e.g., YYYY-MM-DD)
@@ -697,7 +708,7 @@ public class IncidentGUI extends javax.swing.JFrame {
                 return;
             }
 
-            if (incidentType.isEmpty() || date.isEmpty() || time.isEmpty() || location.isEmpty() || description.isEmpty() || peopleInvolved.isEmpty() || officer.isEmpty()) {
+            if (incidentType.isEmpty() || narrative.isEmpty() || date.isEmpty() || time.isEmpty() || location.isEmpty() || description.isEmpty() || peopleInvolved.isEmpty() || officer.isEmpty()) {
                 JOptionPane.showMessageDialog(addIncidentDialog, "All fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -710,6 +721,7 @@ public class IncidentGUI extends javax.swing.JFrame {
             incidentData.put("description", description);
             incidentData.put("peopleInvolved", peopleInvolved);
             incidentData.put("officer", officer);
+            incidentData.put("narrative", narrative);
 
            Helper insert = new Helper();
            insert.insertIncident(incidentData, addIncidentDialog);
@@ -756,16 +768,22 @@ public class IncidentGUI extends javax.swing.JFrame {
         txtLocation.setBounds(150, 140, 200, 25);
         JLabel lblDescription = new JLabel("Description:");
         lblDescription.setBounds(20, 180, 120, 25);
-        JTextField txtDescription = new JTextField((String) jTable1.getValueAt(selectedRow, 5));
+
+        JLabel lblNarrative = new JLabel("Narrative:");
+        lblNarrative.setBounds(20, 200, 120, 25);
+        JTextField txtNarrative = new JTextField((String) jTable1.getValueAt(selectedRow, 5));
+        txtNarrative.setBounds(150, 200, 200, 25);
+
+        JTextField txtDescription = new JTextField((String) jTable1.getValueAt(selectedRow, 6));
         txtDescription.setBounds(150, 180, 200, 25);
         JLabel lblPeopleInvolved = new JLabel("People Involved:");
         lblPeopleInvolved.setBounds(20, 220, 120, 25);
-        JTextField txtPeopleInvolved = new JTextField((String) jTable1.getValueAt(selectedRow, 6));
+        JTextField txtPeopleInvolved = new JTextField((String) jTable1.getValueAt(selectedRow, 7));
         txtPeopleInvolved.setBounds(150, 220, 200, 25);
 
         JLabel lblOfficer = new JLabel("Officer In Charge:");
         lblOfficer.setBounds(20, 260, 120, 25);
-        JTextField txtOfficer = new JTextField((String) jTable1.getValueAt(selectedRow, 7));
+        JTextField txtOfficer = new JTextField((String) jTable1.getValueAt(selectedRow, 8));
 
         txtOfficer.setBounds(150, 260, 200, 25);
 
@@ -785,6 +803,8 @@ public class IncidentGUI extends javax.swing.JFrame {
         updateIncidentDialog.add(txtLocation);
         updateIncidentDialog.add(lblDescription);
         updateIncidentDialog.add(txtDescription);
+        updateIncidentDialog.add(lblNarrative);
+        updateIncidentDialog.add(txtNarrative);
         updateIncidentDialog.add(lblPeopleInvolved);
         updateIncidentDialog.add(txtPeopleInvolved);
         updateIncidentDialog.add(lblOfficer);
@@ -802,6 +822,7 @@ public class IncidentGUI extends javax.swing.JFrame {
             String description = txtDescription.getText();
             String peopleInvolved = txtPeopleInvolved.getText();
             String officer = txtOfficer.getText();
+            String narrative = txtNarrative.getText();
 
             // Validate date format (e.g., YYYY-MM-DD)
             if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
@@ -829,6 +850,7 @@ public class IncidentGUI extends javax.swing.JFrame {
             incidentData.put("peopleInvolved", peopleInvolved);
             incidentData.put("officer", officer);
             incidentData.put("id", jTable1.getValueAt(selectedRow, 0));
+            incidentData.put("narrative", narrative);
 
            Helper update = new Helper();
            update.updateIncident(incidentData, selectedRow, updateIncidentDialog);
@@ -1032,58 +1054,61 @@ public class IncidentGUI extends javax.swing.JFrame {
 
         for (IncidentModel incident : casesList) {
             casesTableModel.addRow(new Object[]{
-                incident.getId(),
-                incident.getIncident(),
-                incident.getDate(),
-                incident.getTime(),
-                incident.getLocation(),
-                incident.getDescription(),
-                incident.getPeopleInvolved(),
-                incident.getOfficerInCharge(),
-                incident.getStatus()
+                    incident.getId(),
+                    incident.getIncident(),
+                    incident.getDate(),
+                    incident.getTime(),
+                    incident.getLocation(),
+                    incident.getDescription(),
+                    incident.getNarratives(),
+                    incident.getPeopleInvolved(),
+                    incident.getOfficerInCharge(),
+                    incident.getStatus()
             });
         }
 
         for (IncidentModel incident : pendingList) {
             pendingTableModel.addRow(new Object[]{
-                incident.getId(),
-                incident.getIncident(),
-                incident.getDate(),
-                incident.getTime(),
-                incident.getLocation(),
-                incident.getDescription(),
-                incident.getPeopleInvolved(),
-                incident.getOfficerInCharge(),
-                incident.getStatus()
+                    incident.getId(),
+                    incident.getIncident(),
+                    incident.getDate(),
+                    incident.getTime(),
+                    incident.getLocation(),
+                    incident.getDescription(),
+                    incident.getNarratives(),
+                    incident.getPeopleInvolved(),
+                    incident.getOfficerInCharge(),
+                    incident.getStatus()
             });
         }
 
         for (IncidentModel incident : underInvestigationList) {
             underInvestigationTableModel.addRow(new Object[]{
-                incident.getId(),
-                incident.getIncident(),
-                incident.getDate(),
-                incident.getTime(),
-                incident.getLocation(),
-                incident.getDescription(),
-                incident.getPeopleInvolved(),
-                incident.getOfficerInCharge(),
-                incident.getStatus()
+                    incident.getId(),
+                    incident.getIncident(),
+                    incident.getDate(),
+                    incident.getTime(),
+                    incident.getLocation(),
+                    incident.getDescription(),
+                    incident.getNarratives(),
+                    incident.getPeopleInvolved(),
+                    incident.getOfficerInCharge(),
+                    incident.getStatus()
             });
         }
 
         for (IncidentModel incident : resolvedList) {
             resolvedTableModel.addRow(new Object[]{
-                incident.getId(),
-                incident.getIncident(),
-                incident.getDate(),
-                incident.getTime(),
-                incident.getLocation(),
-                incident.getResolveDescription(),
-                incident.getPeopleInvolved(),
-                incident.getOfficerInCharge(),
-                    incident.getResolveDescription(),
-                incident.getStatus()
+                    incident.getId(),
+                    incident.getIncident(),
+                    incident.getDate(),
+                    incident.getTime(),
+                    incident.getLocation(),
+                    incident.getDescription(),
+                    incident.getNarratives(),
+                    incident.getPeopleInvolved(),
+                    incident.getOfficerInCharge(),
+                    incident.getStatus()
             });
         }
 

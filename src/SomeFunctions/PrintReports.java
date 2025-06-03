@@ -1,17 +1,15 @@
 package SomeFunctions;
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import model.IncidentModel;
 
 import javax.swing.*;
-import java.io.FileOutputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import model.IncidentModel;
 
 public class PrintReports {
 
@@ -115,8 +113,8 @@ public class PrintReports {
         }
 
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Save PDF Report");
-        fileChooser.setSelectedFile(new java.io.File(statusFilter.replace(" ", "") + "Report_" + timeRange + ".pdf"));
+        fileChooser.setDialogTitle("Save CSV Report");
+        fileChooser.setSelectedFile(new File(statusFilter.replace(" ", "") + "Report_" + timeRange + ".csv"));
 
         int result = fileChooser.showSaveDialog(null);
         if (result != JFileChooser.APPROVE_OPTION) {
@@ -124,47 +122,47 @@ public class PrintReports {
             return;
         }
 
-        java.io.File file = fileChooser.getSelectedFile();
-        if (!file.getName().endsWith(".pdf")) {
-            file = new java.io.File(file.getAbsolutePath() + ".pdf");
+        File file = fileChooser.getSelectedFile();
+        if (!file.getName().endsWith(".csv")) {
+            file = new File(file.getAbsolutePath() + ".csv");
         }
 
-        try {
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(file));
-            document.open();
-
-            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16);
-            Paragraph title = new Paragraph(statusFilter + " Incidents Report (" + timeRange.toUpperCase() + ")", titleFont);
-            title.setAlignment(Element.ALIGN_CENTER);
-            document.add(title);
-            document.add(new Paragraph("Generated on: " + today.format(formatter)));
-            document.add(new Paragraph(" "));
-
-            PdfPTable table = new PdfPTable(5);
-            table.setWidthPercentage(100);
-            table.addCell("ID");
-            table.addCell("Incident");
-            table.addCell("Date");
-            table.addCell("Location");
-            table.addCell("Status");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            String[] headers = {"ID", "Incident", "Date", "Time", "Location", "Status", "People Involved","Description", "Narratives", "Reporting Officer"};
+            writer.write(String.join(",", headers));
+            writer.newLine();
 
             for (IncidentModel incident : filteredIncidents) {
-                table.addCell(incident.getId());
-                table.addCell(incident.getIncident());
-                table.addCell(incident.getDate());
-                table.addCell(incident.getLocation());
-                table.addCell(incident.getStatus());
+                String[] values = {
+                        escape(incident.getId()),
+                        escape(incident.getIncident()),
+                        escape(incident.getDate()),
+                        escape(incident.getTime()),
+                        escape(incident.getLocation()),
+                        escape(incident.getStatus()),
+                        escape(incident.getPeopleInvolved()),
+                        escape(incident.getDescription()),
+                        escape(incident.getNarratives()),
+                        escape(incident.getOfficerInCharge())
+                };
+                writer.write(String.join(",", values));
+                writer.newLine();
             }
 
-            document.add(table);
-            document.close();
-
-            JOptionPane.showMessageDialog(null, "PDF saved at:\n" + file.getAbsolutePath());
+            JOptionPane.showMessageDialog(null, "✅ CSV saved at:\n" + file.getAbsolutePath());
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "PDF generation failed:\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "❌ CSV generation failed:\n" + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private String escape(String value) {
+        if (value == null) return "";
+        if (value.contains(",") || value.contains("\"") || value.contains("\n")) {
+            value = value.replace("\"", "\"\"");
+            return "\"" + value + "\"";
+        }
+        return value;
     }
 }

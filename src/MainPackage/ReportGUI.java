@@ -26,7 +26,7 @@ public class ReportGUI extends javax.swing.JFrame {
     public ReportGUI() {
         initComponents();
 
-        String [] columnNames = {"ID", "Type of Incident", "Date", "Time", "Location", "Description", "People Involved", "Reporting Officer", "Status"};
+        String [] columnNames = {"ID", "Type of Incident", "Date", "Time", "Location", "Description", "Narratives","People Involved", "Reporting Officer", "Status"};
         casesTableModel = new DefaultTableModel(columnNames, 0);
         jTable2.setModel(casesTableModel);
         loadData();
@@ -44,6 +44,7 @@ public class ReportGUI extends javax.swing.JFrame {
                         incident.getDate(),
                         incident.getTime(),
                         incident.getLocation(),
+                            incident.getNarratives(),
                         incident.getDescription(),
                         incident.getPeopleInvolved(),
                         incident.getOfficerInCharge(),
@@ -285,6 +286,7 @@ public class ReportGUI extends javax.swing.JFrame {
                 incident.getTime(),
                 incident.getLocation(),
                 incident.getDescription(),
+                    incident.getNarratives(),
                 incident.getPeopleInvolved(),
                 incident.getOfficerInCharge(),
                 incident.getStatus()

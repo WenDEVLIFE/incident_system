@@ -148,7 +148,7 @@ public class Helper {
 
     // This will insert an incident into the database
     public void insertIncident(Map<String, Object> incidentData, JDialog addIncidentDialog) {
-        String query = "INSERT INTO incident_table (incident, date, time, location, description, people_involved, officer, status, resolve_description, resolved_by, date_passed, date_finished) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?)";
+        String query = "INSERT INTO incident_table (incident, date, time, location, description, people_involved, officer, status, resolve_description, resolved_by, date_passed, date_finished, narrative) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?)";
         String incident = (String) incidentData.get("incidentType");
         String date = (String) incidentData.get("date");
         String time = (String) incidentData.get("time");
@@ -156,6 +156,7 @@ public class Helper {
         String description = (String) incidentData.get("description");
         String peopleInvolved = (String) incidentData.get("peopleInvolved");
         String officer = (String) incidentData.get("officer");
+        String narratives = (String) incidentData.get("narrative");
         try {
             PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
             st.setString(1, incident);
@@ -171,6 +172,7 @@ public class Helper {
             LocalDate currentDate = LocalDate.now();
             st.setString(11, currentDate.toString()); // Date passed
             st.setString(12, "n/a"); // Date finished
+            st.setString(13, narratives); // Narrative
 
             if (st.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(addIncidentDialog, "Incident added successfully!");
@@ -202,8 +204,9 @@ public class Helper {
                 String status = rs.getString("status");
                 String resolvedDescription = rs.getString("resolve_description");
                 String resolvedBy = rs.getString("resolved_by");
+                String narratives = rs.getString("narrative");
 
-                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, narratives, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
                 incidents.add(incidentModel);
             }
         } catch (SQLException e) {
@@ -232,8 +235,9 @@ public class Helper {
                 String status = rs.getString("status");
                 String resolvedDescription = rs.getString("resolve_description");
                 String resolvedBy = rs.getString("resolved_by");
+                String narratives = rs.getString("narrative");
 
-                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, narratives, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
                 pendingIncidents.add(incidentModel);
             }
         } catch (SQLException e) {
@@ -262,8 +266,9 @@ public class Helper {
                 String status = rs.getString("status");
                 String resolvedDescription = rs.getString("resolve_description");
                 String resolvedBy = rs.getString("resolved_by");
+                String narratives = rs.getString("narrative");
 
-                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, narratives, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
                 underInvestigationIncidents.add(incidentModel);
             }
         } catch (SQLException e) {
@@ -291,9 +296,10 @@ public class Helper {
                 String officerInCharge = rs.getString("officer");
                 String status = rs.getString("status");
                 String resolvedDescription = rs.getString("resolve_description");
+                String narratives = rs.getString("narrative");
                 String resolvedBy = rs.getString("resolved_by");
 
-                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, narratives, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
                 resolvedIncidents.add(incidentModel);
             }
         } catch (SQLException e) {
@@ -304,7 +310,7 @@ public class Helper {
     }
 
     public void updateIncident(Map<String, Object> incidentData, int selectedRow, JDialog updateIncidentDialog) {
-        String query = "UPDATE incident_table SET incident = ?, date = ?, time = ?, location = ?, description = ?, people_involved = ?, officer = ? WHERE id = ?";
+        String query = "UPDATE incident_table SET incident = ?, date = ?, time = ?, location = ?, description = ?, people_involved = ?, officer = ?, narrative = ? WHERE id = ?";
         String incident = (String) incidentData.get("incidentType");
         String date = (String) incidentData.get("date");
         String time = (String) incidentData.get("time");
@@ -313,6 +319,7 @@ public class Helper {
         String peopleInvolved = (String) incidentData.get("peopleInvolved");
         String officer = (String) incidentData.get("officer");
         String id = (String) incidentData.get("id");
+        String narratives = (String) incidentData.get("narrative");
 
         try {
             PreparedStatement st = MyConnection.getConnection().prepareStatement(query);
@@ -323,7 +330,8 @@ public class Helper {
             st.setString(5, description);
             st.setString(6, peopleInvolved);
             st.setString(7, officer);
-            st.setString(8, id);
+            st.setString(8, narratives);
+            st.setString(9, id);
 
             if (st.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(updateIncidentDialog, "Incident updated successfully!");
@@ -420,8 +428,9 @@ public class Helper {
                 String status = rs.getString("status");
                 String resolvedDescription = rs.getString("resolve_description");
                 String resolvedBy = rs.getString("resolved_by");
+                String narratives = rs.getString("narrative");
 
-                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
+                IncidentModel incidentModel = new IncidentModel(id, incident, date, time, location, description, narratives, peopleInvolved, officerInCharge, status, resolvedDescription, resolvedBy);
                 incidents.add(incidentModel);
             }
         } catch (SQLException e) {
