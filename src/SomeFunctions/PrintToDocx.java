@@ -135,36 +135,68 @@ public class PrintToDocx {
         try (XWPFDocument document = new XWPFDocument()) {
             XWPFParagraph title = document.createParagraph();
             title.setAlignment(ParagraphAlignment.CENTER);
-            XWPFRun titleRun = title.createRun();
-            titleRun.setText(statusFilter + " Report (" + timeRange + ")");
-            titleRun.setBold(true);
-            titleRun.setFontSize(16);
 
-            for (IncidentModel incident : filteredIncidents) {
+            XWPFRun titleRun1 = title.createRun();
+            titleRun1.setText("Incident Report System");
+            titleRun1.setBold(true);
+            titleRun1.setFontSize(24);
+
+            title.createRun().addBreak(); // Add a line break between titles
+
+            XWPFRun titleRun2 = title.createRun();
+            titleRun2.setText(statusFilter + " Report (" + timeRange + ")");
+            titleRun2.setBold(true);
+            titleRun2.setFontSize(24);
+
+            for (int i = 0; i < filteredIncidents.size(); i++) {
+                IncidentModel incident = filteredIncidents.get(i);
                 XWPFParagraph paragraph = document.createParagraph();
                 XWPFRun run = paragraph.createRun();
-                run.setText("ID: " + escape(incident.getId()));
+                run.setFontSize(12); // Set font size
+
+                run.setText("Incident ID Number: " + escape(incident.getId()));
                 run.addBreak();
-                run.setText("Incident: " + escape(incident.getIncident()));
+                run.addBreak(); // Add extra space
+
+                run.setText("Type of Incident: " + escape(incident.getIncident()));
                 run.addBreak();
-                run.setText("Date: " + escape(incident.getDate()));
+                run.addBreak(); // Add extra space
+
+                run.setText("Date of the Incident: " + escape(incident.getDate()));
                 run.addBreak();
-                run.setText("Time: " + escape(incident.getTime()));
+                run.addBreak(); // Add extra space
+
+                run.setText("Time of the Incidnet: " + escape(incident.getTime()));
                 run.addBreak();
-                run.setText("Location: " + escape(incident.getLocation()));
+                run.addBreak(); // Add extra space
+
+                run.setText("Incident Location: " + escape(incident.getLocation()));
                 run.addBreak();
-                run.setText("Status: " + escape(incident.getStatus()));
+                run.addBreak(); // Add extra space
+
+                run.setText("Incident Status: " + escape(incident.getStatus()));
                 run.addBreak();
+                run.addBreak(); // Add extra space
+
                 run.setText("People Involved: " + escape(incident.getPeopleInvolved()));
                 run.addBreak();
+                run.addBreak(); // Add extra space
+
                 run.setText("Description: " + escape(incident.getDescription()));
                 run.addBreak();
+                run.addBreak(); // Add extra space
+
                 run.setText("Narratives: " + escape(incident.getNarratives()));
                 run.addBreak();
-                run.setText("Reporting Officer: " + escape(incident.getOfficerInCharge()));
+                run.addBreak(); // Add extra space
 
-                // Add a page break after each incident
-                document.createParagraph().setPageBreak(true);
+                run.setText("Reporting Officer: " + escape(incident.getOfficerInCharge()));
+                run.addBreak();
+
+                // Add a page break only if this is not the last incident
+                if (i < filteredIncidents.size() - 1) {
+                    document.createParagraph().setPageBreak(true);
+                }
             }
 
             try (FileOutputStream out = new FileOutputStream(file)) {
