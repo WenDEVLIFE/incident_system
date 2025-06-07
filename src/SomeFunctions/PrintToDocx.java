@@ -26,6 +26,60 @@ public class PrintToDocx {
         return instance;
     }
 
+    public void printPendingReport(List<IncidentModel> data) {
+        showTimeRangeDialog("Pending", data);
+    }
+
+    public void printUnderInvestigationReport(List<IncidentModel> data) {
+        showTimeRangeDialog("Under Investigation", data);
+    }
+
+    private void showTimeRangeDialog(String status, List<IncidentModel> data) {
+        JDialog dialog = new JDialog((JFrame) null, "Select Time Range", true);
+        dialog.setSize(300, 200);
+        dialog.setLocationRelativeTo(null);
+        dialog.setLayout(new BoxLayout(dialog.getContentPane(), BoxLayout.Y_AXIS));
+
+        JLabel label = new JLabel("Select Time Range:");
+        label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        JButton dailyButton = new JButton("Daily");
+        JButton weeklyButton = new JButton("Weekly");
+        JButton monthlyButton = new JButton("Monthly");
+
+        dailyButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        weeklyButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        monthlyButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+
+        dialog.add(Box.createVerticalStrut(15));
+        dialog.add(label);
+        dialog.add(Box.createVerticalStrut(10));
+        dialog.add(dailyButton);
+        dialog.add(Box.createVerticalStrut(5));
+        dialog.add(weeklyButton);
+        dialog.add(Box.createVerticalStrut(5));
+        dialog.add(monthlyButton);
+        dialog.add(Box.createVerticalStrut(15));
+
+        dailyButton.addActionListener(e -> {
+            generateFilteredReport("daily", data, status);
+            dialog.dispose();
+        });
+
+        weeklyButton.addActionListener(e -> {
+            generateFilteredReport("weekly", data, status);
+            dialog.dispose();
+        });
+
+        monthlyButton.addActionListener(e -> {
+            generateFilteredReport("monthly", data, status);
+            dialog.dispose();
+        });
+
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setVisible(true);
+    }
+
 
     private void generateFilteredReport(String timeRange, List<IncidentModel> data, String statusFilter) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -125,12 +179,12 @@ public class PrintToDocx {
         }
     }
     
-private String escape(String value) {
-    if (value == null) return "";
-    if (value.contains(",") || value.contains("\"") || value.contains("\n")) {
-        value = value.replace("\"", "\"\"");
-        return "\"" + value + "\"";
-    }
-    return value;
-}
+        private String escape(String value) {
+            if (value == null) return "";
+            if (value.contains(",") || value.contains("\"") || value.contains("\n")) {
+                value = value.replace("\"", "\"\"");
+                return "\"" + value + "\"";
+            }
+            return value;
+        }
 }

@@ -6,6 +6,7 @@ package MainPackage;
 
 import SomeFunctions.Helper;
 import SomeFunctions.PrintReports;
+import SomeFunctions.PrintToDocx;
 import model.IncidentModel;
 
 import javax.swing.table.DefaultTableModel;
@@ -244,7 +245,7 @@ public class ReportGUI extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
 
-        PrintReports.getInstance().printUnderInvestigationReport(reportList);
+        PrintToDocx.getInstance().printUnderInvestigationReport(reportList);
 
         loadData();
       
@@ -259,7 +260,7 @@ public class ReportGUI extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
         // Call the printPendingReport method from PrintReports class
-        SomeFunctions.PrintReports.getInstance().printPendingReport(reportList);
+        PrintToDocx.getInstance().printPendingReport(reportList);
 
         // Optionally, you can refresh the data after printing
         loadData();
