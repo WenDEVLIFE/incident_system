@@ -159,9 +159,16 @@ public class PrintToDocx {
                 rightAlignedParagraph.setAlignment(ParagraphAlignment.RIGHT);
                 rightAlignedParagraph.setSpacingBefore(500);
 
+                XWPFParagraph rightAlignedParagraph1 = document.createParagraph();
+                rightAlignedParagraph1.setAlignment(ParagraphAlignment.RIGHT);
+
                 XWPFRun rightRun = rightAlignedParagraph.createRun();
                 rightRun.setFontSize(12);
-                rightRun.setText(incident.getOfficerInCharge() + " - Reporting Officer");
+                rightRun.setText(incident.getOfficerInCharge());
+
+                XWPFRun rightRun2 = rightAlignedParagraph1.createRun();
+                rightRun2.setFontSize(12);
+                rightRun2.setText(" - Reporting Officer");
 
                 // Add a page break and re-add the title if this is not the last incident
                 if (i < filteredIncidents.size() - 1) {
@@ -215,7 +222,7 @@ public class PrintToDocx {
         titleParagraph3.setAlignment(ParagraphAlignment.CENTER);
 
         XWPFRun titleRun3 = titleParagraph3.createRun();
-        titleRun3.setText("Incident Data");
+        titleRun3.setText("Incident Report");
         titleRun3.setBold(true);
         titleRun3.setFontSize(24);
 
