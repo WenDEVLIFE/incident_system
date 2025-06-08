@@ -6,13 +6,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.apache.poi.xwpf.usermodel.*;
 import javax.swing.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
+
 import model.IncidentModel;
 
 public class PrintToDocx {
@@ -133,69 +130,43 @@ public class PrintToDocx {
         }
 
         try (XWPFDocument document = new XWPFDocument()) {
-            XWPFParagraph title = document.createParagraph();
-            title.setAlignment(ParagraphAlignment.CENTER);
-
-            XWPFRun titleRun1 = title.createRun();
-            titleRun1.setText("Incident Report System");
-            titleRun1.setBold(true);
-            titleRun1.setFontSize(24);
-
-            title.createRun().addBreak(); // Add a line break between titles
-
-            XWPFRun titleRun2 = title.createRun();
-            titleRun2.setText(statusFilter + " Report (" + timeRange + ")");
-            titleRun2.setBold(true);
-            titleRun2.setFontSize(24);
+            // Method to add the title
+            addTitle(document, statusFilter, timeRange);
 
             for (int i = 0; i < filteredIncidents.size(); i++) {
                 IncidentModel incident = filteredIncidents.get(i);
+
+                // Add incident details
                 XWPFParagraph paragraph = document.createParagraph();
+                paragraph.setSpacingBefore(500); // Add space before the paragraph (value in twips)
+
                 XWPFRun run = paragraph.createRun();
                 run.setFontSize(12); // Set font size
+                String reportText =
+                        "The Case ID Number is " + escape(incident.getId()) + ".\n" +
+                        "This report pertains to an incident categorized as \"" + escape(incident.getIncident()) + "\".\n" +
+                        "The incident occurred on " + escape(incident.getDate()) + " at " + escape(incident.getTime()) + ".\n" +
+                        "The location of the incident is specified as " + escape(incident.getLocation()) + ".\n" +
+                        "Currently, the status of the incident is \"" + escape(incident.getStatus()) + "\".\n" +
+                        "The individuals involved in this incident are: " + escape(incident.getPeopleInvolved()) + ".\n" +
+                        "A brief description of the incident is as follows: " + escape(incident.getDescription()) + ".\n" +
+                        "Additional narratives provided include: " + escape(incident.getNarratives()) + ".\n" +
+                        "This report was filed by the reporting officer, " + escape(incident.getOfficerInCharge());
+                run.setText(reportText);
 
-                run.setText("Incident ID Number: " + escape(incident.getId()));
-                run.addBreak();
-                run.addBreak(); // Add extra space
+                // Add right-aligned paragraph
+                XWPFParagraph rightAlignedParagraph = document.createParagraph();
+                rightAlignedParagraph.setAlignment(ParagraphAlignment.RIGHT);
+                rightAlignedParagraph.setSpacingBefore(500);
 
-                run.setText("Type of Incident: " + escape(incident.getIncident()));
-                run.addBreak();
-                run.addBreak(); // Add extra space
+                XWPFRun rightRun = rightAlignedParagraph.createRun();
+                rightRun.setFontSize(12);
+                rightRun.setText(incident.getOfficerInCharge() + " - Reporting Officer");
 
-                run.setText("Date of the Incident: " + escape(incident.getDate()));
-                run.addBreak();
-                run.addBreak(); // Add extra space
-
-                run.setText("Time of the Incidnet: " + escape(incident.getTime()));
-                run.addBreak();
-                run.addBreak(); // Add extra space
-
-                run.setText("Incident Location: " + escape(incident.getLocation()));
-                run.addBreak();
-                run.addBreak(); // Add extra space
-
-                run.setText("Incident Status: " + escape(incident.getStatus()));
-                run.addBreak();
-                run.addBreak(); // Add extra space
-
-                run.setText("People Involved: " + escape(incident.getPeopleInvolved()));
-                run.addBreak();
-                run.addBreak(); // Add extra space
-
-                run.setText("Description: " + escape(incident.getDescription()));
-                run.addBreak();
-                run.addBreak(); // Add extra space
-
-                run.setText("Narratives: " + escape(incident.getNarratives()));
-                run.addBreak();
-                run.addBreak(); // Add extra space
-
-                run.setText("Reporting Officer: " + escape(incident.getOfficerInCharge()));
-                run.addBreak();
-
-                // Add a page break only if this is not the last incident
+                // Add a page break and re-add the title if this is not the last incident
                 if (i < filteredIncidents.size() - 1) {
                     document.createParagraph().setPageBreak(true);
+                    addTitle(document, statusFilter, timeRange);
                 }
             }
 
@@ -204,7 +175,6 @@ public class PrintToDocx {
             }
 
             JOptionPane.showMessageDialog(null, "✅ Word document saved at:\n" + file.getAbsolutePath());
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "❌ Word document generation failed:\n" + e.getMessage());
             e.printStackTrace();
@@ -219,4 +189,36 @@ public class PrintToDocx {
             }
             return value;
         }
+
+    // Method to add the title
+    private void addTitle(XWPFDocument document, String statusFilter, String timeRange) {
+        XWPFParagraph title = document.createParagraph();
+        title.setSpacingBefore(400); // Set spacing before the paragraph
+        title.setAlignment(ParagraphAlignment.CENTER);
+
+        XWPFRun titleRun1 = title.createRun();
+        titleRun1.setText("Incident Report System");
+        titleRun1.setBold(true);
+        titleRun1.setFontSize(24);
+
+        title.createRun().addBreak(); // Add a line break between titles
+
+        XWPFRun titleRun2 = title.createRun();
+        titleRun2.setText(statusFilter + " Report (" + timeRange + ")");
+        titleRun2.setBold(true);
+        titleRun2.setFontSize(24);
+
+        title.createRun().addBreak();
+
+        XWPFParagraph titleParagraph3 = document.createParagraph();
+        titleParagraph3.setSpacingBefore(400); // Add spacing before the paragraph (value in twips)
+        titleParagraph3.setAlignment(ParagraphAlignment.CENTER);
+
+        XWPFRun titleRun3 = titleParagraph3.createRun();
+        titleRun3.setText("Incident Data");
+        titleRun3.setBold(true);
+        titleRun3.setFontSize(24);
+
+   
+    }
 }
