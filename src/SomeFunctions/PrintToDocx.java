@@ -1,5 +1,6 @@
 package SomeFunctions;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.stream.Collectors;
 import javax.swing.JFileChooser;
@@ -11,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import model.IncidentModel;
+import org.apache.poi.util.Units;
 
 public class PrintToDocx {
 
@@ -197,35 +199,31 @@ public class PrintToDocx {
             return value;
         }
 
-    // Method to add the title
     private void addTitle(XWPFDocument document, String statusFilter, String timeRange) {
-        XWPFParagraph title = document.createParagraph();
-        title.setSpacingBefore(400); // Set spacing before the paragraph
-        title.setAlignment(ParagraphAlignment.CENTER);
+        // Add the logo on the left side
+        XWPFParagraph logoParagraph = document.createParagraph();
+        logoParagraph.setAlignment(ParagraphAlignment.LEFT); // Align the logo to the left
+        XWPFRun logoRun = logoParagraph.createRun();
+        try (FileInputStream logoStream = new FileInputStream("src/Picture/pnp.png")) { // Replace with the actual path to your logo
+            logoRun.addPicture(logoStream, Document.PICTURE_TYPE_PNG, "logo.png", Units.toEMU(50), Units.toEMU(50)); // Adjust size as needed
+        } catch (Exception e) {
+            System.out.println("❌ Failed to add logo: " + e.getMessage());
+        }
 
-        XWPFRun titleRun1 = title.createRun();
-        titleRun1.setText("Incident Report System");
-        titleRun1.setBold(true);
-        titleRun1.setFontSize(24);
+        // Add the text centered to the right
+        XWPFParagraph textParagraph = document.createParagraph();
+        textParagraph.setAlignment(ParagraphAlignment.CENTER); // Align the text to the right
+        textParagraph.setIndentationLeft(300); // Adjust indentation to simulate center-right alignment
 
-        title.createRun().addBreak(); // Add a line break between titles
-
-        XWPFRun titleRun2 = title.createRun();
-        titleRun2.setText(statusFilter + " Report (" + timeRange + ")");
-        titleRun2.setBold(true);
-        titleRun2.setFontSize(24);
-
-        title.createRun().addBreak();
-
-        XWPFParagraph titleParagraph3 = document.createParagraph();
-        titleParagraph3.setSpacingBefore(400); // Add spacing before the paragraph (value in twips)
-        titleParagraph3.setAlignment(ParagraphAlignment.CENTER);
-
-        XWPFRun titleRun3 = titleParagraph3.createRun();
-        titleRun3.setText("Incident Report");
-        titleRun3.setBold(true);
-        titleRun3.setFontSize(24);
-
-   
+        XWPFRun textRun = textParagraph.createRun();
+        textRun.setBold(true);
+        textRun.setFontSize(16);
+        textRun.setText("REPUBLIC OF THE PHILIPPINES\n");
+        textRun.addBreak();
+        textRun.setText("PROVINCE OF AURORA\n");
+        textRun.addBreak();
+        textRun.setText("MUNICIPALITY OF SAN LUIS\n");
+        textRun.addBreak();
+        textRun.setText("BARANGAY 03");
     }
 }
