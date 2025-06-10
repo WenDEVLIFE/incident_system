@@ -145,32 +145,53 @@ public class PrintToDocx {
                 XWPFRun run = paragraph.createRun();
                 run.setFontSize(12); // Set font size
                 String reportText =
-                        "The Case ID Number is " + escape(incident.getId()) + ".\n" +
-                        "This report pertains to an incident categorized as \"" + escape(incident.getIncident()) + "\".\n" +
-                        "The incident occurred on " + escape(incident.getDate()) + " at " + escape(incident.getTime()) + ".\n" +
-                        "The location of the incident is specified as " + escape(incident.getLocation()) + ".\n" +
-                        "Currently, the status of the incident is \"" + escape(incident.getStatus()) + "\".\n" +
-                        "The individuals involved in this incident are: " + escape(incident.getPeopleInvolved()) + ".\n" +
-                        "A brief description of the incident is as follows: " + escape(incident.getDescription()) + ".\n" +
-                        "Additional narratives provided include: " + escape(incident.getNarratives()) + ".\n" +
-                        "This report was filed by the reporting officer, " + escape(incident.getOfficerInCharge());
+                        "This Incident details an incident involving " + escape(incident.getPeopleInvolved()) +
+                                ", which took place at " + escape(incident.getLocation()) + " on " + escape(incident.getDate()) +
+                                " at around " + escape(incident.getTime()) + ". The incident has been classified as \"" +
+                                escape(incident.getIncident()) + "\", and is currently marked with the status of \"" +
+                                escape(incident.getStatus()) + "\".\n\n" +
+                                "According to the report, the incident unfolded as follows: " + escape(incident.getDescription()) +
+                                ". Further accounts and additional narratives provided regarding this matter include: " +
+                                escape(incident.getNarratives()) + ".\n\n" +
+                                "This report has been formally submitted by Officer " + escape(incident.getOfficerInCharge()) + ".";
                 run.setText(reportText);
 
                 // Add right-aligned paragraph
-                XWPFParagraph rightAlignedParagraph = document.createParagraph();
-                rightAlignedParagraph.setAlignment(ParagraphAlignment.RIGHT);
-                rightAlignedParagraph.setSpacingBefore(500);
+                XWPFParagraph leftParagraph = document.createParagraph();
+                leftParagraph.setAlignment(ParagraphAlignment.LEFT);
+                leftParagraph.setSpacingBefore(500);
 
-                XWPFParagraph rightAlignedParagraph1 = document.createParagraph();
-                rightAlignedParagraph1.setAlignment(ParagraphAlignment.RIGHT);
 
-                XWPFRun rightRun = rightAlignedParagraph.createRun();
-                rightRun.setFontSize(12);
-                rightRun.setText(incident.getOfficerInCharge());
+                XWPFRun leftRun1 = leftParagraph.createRun();
+                leftRun1.setFontSize(12);
+                leftRun1.setText("Type of Incident: " + incident.getIncident());
+                leftRun1.addBreak();
 
-                XWPFRun rightRun2 = rightAlignedParagraph1.createRun();
-                rightRun2.setFontSize(12);
-                rightRun2.setText(" - Reporting Officer");
+                XWPFRun leftRun3 = leftParagraph.createRun();
+                leftRun3.setFontSize(12);
+                leftRun3.setText("Time: " + incident.getTime());
+                leftRun3.addBreak();
+
+                XWPFRun leftRun2 = leftParagraph.createRun();
+                leftRun2.setFontSize(12);
+                leftRun2.setText("Date: " + incident.getDate());
+                leftRun2.addBreak();
+
+                XWPFRun leftRun4 = leftParagraph.createRun();
+                leftRun4.setFontSize(12);
+                leftRun4.setText("Location: " + incident.getLocation());
+                leftRun4.addBreak();
+
+                XWPFRun leftRun6 = leftParagraph.createRun();
+                leftRun6.setFontSize(12);
+                leftRun6.setText("People Involved: " + incident.getPeopleInvolved());
+                leftRun6.addBreak();
+
+                XWPFRun leftRun7 = leftParagraph.createRun();
+                leftRun7.setFontSize(12);
+                leftRun7.setText("Reporting Officer:" + incident.getOfficerInCharge());
+                leftRun7.addBreak();
+
 
                 // Add a page break and re-add the title if this is not the last incident
                 if (i < filteredIncidents.size() - 1) {
@@ -225,5 +246,13 @@ public class PrintToDocx {
         textRun.setText("MUNICIPALITY OF SAN LUIS\n");
         textRun.addBreak();
         textRun.setText("BARANGAY 03");
+
+        XWPFParagraph titleParagraph3 = document.createParagraph();
+        titleParagraph3.setSpacingBefore(400); // Add spacing before the paragraph (value in twips)
+        titleParagraph3.setAlignment(ParagraphAlignment.CENTER);
+        XWPFRun titleRun5 = titleParagraph3.createRun();
+        titleRun5.setText("Incident Report");
+        titleRun5.setBold(true);
+        titleRun5.setFontSize(18);
     }
 }
