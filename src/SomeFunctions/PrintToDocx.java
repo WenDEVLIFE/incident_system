@@ -174,31 +174,37 @@ public class PrintToDocx {
 
                 XWPFRun leftRun1 = leftParagraph.createRun();
                 leftRun1.setFontSize(12);
+                leftRun1.setBold(true);
                 leftRun1.setText("Type of Incident: " + incident.getIncident());
                 leftRun1.addBreak();
 
                 XWPFRun leftRun3 = leftParagraph.createRun();
                 leftRun3.setFontSize(12);
+                leftRun3.setBold(true);
                 leftRun3.setText("Time: " + incident.getTime());
                 leftRun3.addBreak();
 
                 XWPFRun leftRun2 = leftParagraph.createRun();
                 leftRun2.setFontSize(12);
+                leftRun2.setBold(true);
                 leftRun2.setText("Date: " + incident.getDate());
                 leftRun2.addBreak();
 
                 XWPFRun leftRun4 = leftParagraph.createRun();
                 leftRun4.setFontSize(12);
+                leftRun4.setBold(true);
                 leftRun4.setText("Location: " + incident.getLocation());
                 leftRun4.addBreak();
 
                 XWPFRun leftRun6 = leftParagraph.createRun();
                 leftRun6.setFontSize(12);
+                leftRun6.setBold(true);
                 leftRun6.setText("People Involved: " + incident.getPeopleInvolved());
                 leftRun6.addBreak();
 
                 XWPFRun leftRun7 = leftParagraph.createRun();
                 leftRun7.setFontSize(12);
+                leftRun7.setBold(true);
                 leftRun7.setText("Reporting Officer: " + incident.getOfficerInCharge());
                 leftRun7.addBreak();
 
