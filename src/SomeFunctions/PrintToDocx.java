@@ -138,6 +138,17 @@ public class PrintToDocx {
             for (int i = 0; i < filteredIncidents.size(); i++) {
                 IncidentModel incident = filteredIncidents.get(i);
 
+                // Add incident heading at the top
+                XWPFParagraph headingParagraph = document.createParagraph();
+                headingParagraph.setAlignment(ParagraphAlignment.LEFT); // Align the text to the left
+                headingParagraph.setSpacingBefore(200); // Add space before the paragraph (value in twips)
+
+                XWPFRun headingRun = headingParagraph.createRun();
+                headingRun.setFontSize(12);
+                headingRun.setBold(true);
+                headingRun.setText("Incident Report #" + (i + 1));
+                headingRun.addBreak();
+
                 // Add incident details
                 XWPFParagraph paragraph = document.createParagraph();
                 paragraph.setSpacingBefore(500); // Add space before the paragraph (value in twips)
@@ -156,11 +167,10 @@ public class PrintToDocx {
                                 "This report has been formally submitted by Officer " + escape(incident.getOfficerInCharge()) + ".";
                 run.setText(reportText);
 
-                // Add right-aligned paragraph
+                // Add additional details in a left-aligned paragraph
                 XWPFParagraph leftParagraph = document.createParagraph();
                 leftParagraph.setAlignment(ParagraphAlignment.LEFT);
                 leftParagraph.setSpacingBefore(500);
-
 
                 XWPFRun leftRun1 = leftParagraph.createRun();
                 leftRun1.setFontSize(12);
@@ -189,9 +199,8 @@ public class PrintToDocx {
 
                 XWPFRun leftRun7 = leftParagraph.createRun();
                 leftRun7.setFontSize(12);
-                leftRun7.setText("Reporting Officer:" + incident.getOfficerInCharge());
+                leftRun7.setText("Reporting Officer: " + incident.getOfficerInCharge());
                 leftRun7.addBreak();
-
 
                 // Add a page break and re-add the title if this is not the last incident
                 if (i < filteredIncidents.size() - 1) {
