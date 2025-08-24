@@ -12,6 +12,7 @@ import model.IncidentModel;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -244,11 +245,28 @@ public class ReportGUI extends javax.swing.JFrame {
     // This is for print under investigation
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
+        Object[] options = {"Word", "Excel", "Cancel"};
+        int choice = JOptionPane.showOptionDialog(
+                this,
+                "Select export format:",
+                "Export Format",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
 
-        PrintToDocx.getInstance().printUnderInvestigationReport(reportList);
+        if (choice == 0) {
+           PrintToDocx.getInstance().printUnderInvestigationReport(reportList);
 
         loadData();
       
+        } else if (choice == 1) {
+            PrintReports.getInstance().printUnderInvestigationReport(reportList);
+        }
+
+     
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void SearchCasesFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchCasesFieldActionPerformed
@@ -259,11 +277,26 @@ public class ReportGUI extends javax.swing.JFrame {
     // This will print the pending table
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
-        // Call the printPendingReport method from PrintReports class
-        PrintToDocx.getInstance().printPendingReport(reportList);
+          Object[] options = {"Word", "Excel", "Cancel"};
+        int choice = JOptionPane.showOptionDialog(
+                this,
+                "Select export format:",
+                "Export Format",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
 
-        // Optionally, you can refresh the data after printing
+        if (choice == 0) {
+           PrintToDocx.getInstance().printPendingReport(reportList);
+
         loadData();
+      
+        } else if (choice == 1) {
+            PrintReports.getInstance().printPendingReport(reportList);
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     void loadData(){

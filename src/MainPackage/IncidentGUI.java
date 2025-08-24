@@ -1134,9 +1134,9 @@ public class IncidentGUI extends javax.swing.JFrame {
         );
 
         if (choice == 0) {
-            PrintToDocx.getInstance().printPendingReport(resolvedList);
+            PrintToDocx.getInstance().printResoved(resolvedList);
         } else if (choice == 1) {
-            PrintReports.getInstance().printPendingReport(resolvedList);
+            PrintReports.getInstance().printResolved(resolvedList);
         }
     }//GEN-LAST:event_jButton11ActionPerformed
 
@@ -1156,9 +1156,9 @@ public class IncidentGUI extends javax.swing.JFrame {
         );
 
         if (choice == 0) {
-            PrintToDocx.getInstance().printPendingReport(underInvestigationList);
+            PrintToDocx.getInstance().printUnderInvestigationReport(underInvestigationList);
         } else if (choice == 1) {
-            PrintReports.getInstance().printPendingReport(underInvestigationList);
+            PrintReports.getInstance().printUnderInvestigationReport(underInvestigationList);
         }
     }//GEN-LAST:event_jButton12ActionPerformed
 
@@ -1179,7 +1179,7 @@ public class IncidentGUI extends javax.swing.JFrame {
         if (choice == 0) {
             PrintToDocx.getInstance().printPendingReport(casesList);
         } else if (choice == 1) {
-            PrintReports.getInstance().printPendingReport(casesList);
+            PrintReports.getInstance().printAll(casesList);
         }
         // Cancel does nothing
     }
