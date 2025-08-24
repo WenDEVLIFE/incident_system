@@ -33,6 +33,10 @@ public class PrintToDocx {
         showTimeRangeDialog("Under Investigation", data);
     }
 
+       public void printResoved(List<IncidentModel> data) {
+        showTimeRangeDialog("Resolved", data);
+    }
+
     private void showTimeRangeDialog(String status, List<IncidentModel> data) {
         JDialog dialog = new JDialog((JFrame) null, "Select Time Range", true);
         dialog.setSize(300, 200);

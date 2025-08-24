@@ -21,6 +21,10 @@ public class PrintReports {
         }
         return instance;
     }
+      public void printAll(List<IncidentModel> data) {
+        showTimeRangeDialog("AllCases", data);
+    }
+      
 
     public void printPendingReport(List<IncidentModel> data) {
         showTimeRangeDialog("Pending", data);
@@ -28,6 +32,10 @@ public class PrintReports {
 
     public void printUnderInvestigationReport(List<IncidentModel> data) {
         showTimeRangeDialog("Under Investigation", data);
+    }
+    
+    public void printResolved(List<IncidentModel> data) {
+        showTimeRangeDialog("Resolved", data);
     }
 
     private void showTimeRangeDialog(String status, List<IncidentModel> data) {
