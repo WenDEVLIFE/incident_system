@@ -137,7 +137,7 @@ public class PrintReports {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             String[] headers = {"ID", "Incident", "Date", "Time", "Location", "Status", "People Involved","Description", "Narratives", "Reporting Officer"};
-            String[] headers1= {"ID","Date", "Time", "Location"};
+            String[] headers1= {"ID","Date", "Time", "Location", "Description"};
 
             writer.write(String.join(",", headers1));
             writer.newLine();
@@ -151,7 +151,7 @@ public class PrintReports {
                         escape(incident.getLocation()),
                       //  escape(incident.getStatus()),
                        // escape(incident.getPeopleInvolved()),
-                       // escape(incident.getDescription()),
+                        escape(incident.getDescription()),
                        // escape(incident.getNarratives()),
                        // escape(incident.getOfficerInCharge())
                 };
