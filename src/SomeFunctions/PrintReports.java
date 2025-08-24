@@ -137,21 +137,23 @@ public class PrintReports {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             String[] headers = {"ID", "Incident", "Date", "Time", "Location", "Status", "People Involved","Description", "Narratives", "Reporting Officer"};
-            writer.write(String.join(",", headers));
+            String[] headers1= {"ID","Date", "Time", "Location"};
+
+            writer.write(String.join(",", headers1));
             writer.newLine();
 
             for (IncidentModel incident : filteredIncidents) {
                 String[] values = {
                         escape(incident.getId()),
-                        escape(incident.getIncident()),
+                       // escape(incident.getIncident()),
                         escape(incident.getDate()),
                         escape(incident.getTime()),
                         escape(incident.getLocation()),
-                        escape(incident.getStatus()),
-                        escape(incident.getPeopleInvolved()),
-                        escape(incident.getDescription()),
-                        escape(incident.getNarratives()),
-                        escape(incident.getOfficerInCharge())
+                      //  escape(incident.getStatus()),
+                       // escape(incident.getPeopleInvolved()),
+                       // escape(incident.getDescription()),
+                       // escape(incident.getNarratives()),
+                       // escape(incident.getOfficerInCharge())
                 };
                 writer.write(String.join(",", values));
                 writer.newLine();
