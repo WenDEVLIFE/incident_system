@@ -1098,29 +1098,7 @@ public class IncidentGUI extends javax.swing.JFrame {
 
     // print pending
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-         Object[] options = {"Word", "Excel", "Cancel"};
-        int choice = JOptionPane.showOptionDialog(
-                this,
-                "Select export format:",
-                "Export Format",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]
-        );
 
-        if (choice == 0) {
-            PrintToDocx.getInstance().printPendingReport(pendingList);
-        } else if (choice == 1) {
-            PrintReports.getInstance().printPendingReport(pendingList);
-        }
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-          // TODO add your handling code here:
          Object[] options = {"Word", "Excel", "Cancel"};
         int choice = JOptionPane.showOptionDialog(
                 this,
@@ -1138,11 +1116,31 @@ public class IncidentGUI extends javax.swing.JFrame {
         } else if (choice == 1) {
             PrintReports.getInstance().printResolved(resolvedList);
         }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        Object[] options = {"Word", "Excel", "Cancel"};
+        int choice = JOptionPane.showOptionDialog(
+                this,
+                "Select export format:",
+                "Export Format",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+
+        if (choice == 0) {
+            PrintToDocx.getInstance().printPendingReport(pendingList);
+        } else if (choice == 1) {
+            PrintReports.getInstance().printPendingReport(pendingList);
+        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     // print under investigation
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-       // TODO add your handling code here:
+
          Object[] options = {"Word", "Excel", "Cancel"};
         int choice = JOptionPane.showOptionDialog(
                 this,
